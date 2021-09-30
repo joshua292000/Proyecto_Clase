@@ -25,4 +25,8 @@ public interface IUsuarioService {
 
     public Optional<UsuarioDTO> login(String cedula,String password);
 
+    public Optional<List<UsuarioDTO>> findByDepartamentoId(Long id);
+
+    public Optional<UsuarioDTO>findJefeByDepartamento(Long id);
+
 }

@@ -53,12 +53,27 @@ public class UsuarioController {
             return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/id/{term}")
+    @ApiOperation(value = "Obtiene una lista de los id de un departamento", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
+    public ResponseEntity<?> findByDepartamentoId(@PathVariable(value = "term") long id) {
+        Optional<List<UsuarioDTO>> result = usuarioService.findByDepartamentoId(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/{iddepartamento}")
+    @ApiOperation(value = "Obtiene una jefe de un departamento mediante su id", response = UsuarioDTO.class, tags = "Usuarios")
+    public ResponseEntity<?> findJefeByDepartamento(@PathVariable(value = "id") Long id) {
+        Optional<UsuarioDTO> usuarioFound = usuarioService.findJefeByDepartamento(id);
+        return new ResponseEntity<>(usuarioFound, HttpStatus.OK);
+    }
+
     @GetMapping("/nombre/{term}")
     @ApiOperation(value = "Obtiene una lista de los nombres", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     public ResponseEntity<?> findByNombreCompletoAproximateIgnoreCase(@PathVariable(value = "term") String term) {
         Optional<List<UsuarioDTO>> result = usuarioService.findByNombreCompletoAproximateIgnoreCase(term);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/")

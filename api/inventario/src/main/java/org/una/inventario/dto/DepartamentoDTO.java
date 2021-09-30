@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.una.inventario.entities.Departamento;
-
 import java.util.Date;
 
 @Data
@@ -13,16 +11,11 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 
-
-public class UsuarioDTO {
+public class DepartamentoDTO {
     private Long id;
-    private String nombreCompleto;
-    private String cedula;
+    private String nombre;
     private boolean estado;
     private Date fechaRegistro;
     private Date fechaModificacion;
-    private Long departamentoId;
-    private boolean esJefe;
-    private Departamento departamento;
 
 }
