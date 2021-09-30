@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-
+@Builder
 public class Roles implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

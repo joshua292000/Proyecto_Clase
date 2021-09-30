@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class Usuario implements Serializable {
 
     @Id
@@ -34,6 +35,10 @@ public class Usuario implements Serializable {
     @ManyToOne
     @JoinColumn(name="departamentos_id")
     private Departamento departamento;
+
+    @ManyToOne
+    @JoinColumn(name="rol_id")
+    private Roles rol;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Transaccion> transacciones = new ArrayList<>();

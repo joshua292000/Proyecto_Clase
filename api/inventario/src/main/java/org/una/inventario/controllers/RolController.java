@@ -54,7 +54,7 @@ public class RolController {
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "Actualiza por medio del id", response = RolesDTO.class, tags = "Seguridad")
+    @ApiOperation(value = "Actualiza por medio del id del rol", response = RolesDTO.class, tags = "Seguridad")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody RolesDTO rolModified) {
         Optional<RolesDTO> rolUpdated = rolService.update(rolModified, id);
