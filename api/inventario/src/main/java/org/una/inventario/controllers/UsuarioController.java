@@ -20,7 +20,6 @@ public class UsuarioController {
     @Autowired
     private IUsuarioService usuarioService;
 
-
     @GetMapping()
     @ApiOperation(value = "Obtiene una lista de todos los Usuarios", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     public @ResponseBody

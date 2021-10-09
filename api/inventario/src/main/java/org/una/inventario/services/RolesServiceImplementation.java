@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.inventario.dto.RolesDTO;
+import org.una.inventario.dto.TransaccionDTO;
 import org.una.inventario.entities.Roles;
+import org.una.inventario.entities.Transaccion;
 import org.una.inventario.exceptions.NotFoundInformationException;
 import org.una.inventario.repositories.RolesRepository;
 import org.una.inventario.utils.MapperUtils;
@@ -33,8 +35,8 @@ public class RolesServiceImplementation implements RolesService{
 
     @Override
     @Transactional
-    public Optional<RolesDTO> create(RolesDTO rolDTO) {
-        return Optional.ofNullable(getSavedRolDTO(rolDTO));
+    public RolesDTO create(RolesDTO rolDTO) {
+        return getSavedRolDTO(rolDTO);
     }
 
     @Override

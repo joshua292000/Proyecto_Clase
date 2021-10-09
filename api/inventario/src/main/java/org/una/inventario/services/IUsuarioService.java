@@ -1,5 +1,6 @@
 package org.una.inventario.services;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.una.inventario.dto.UsuarioDTO;
 
 import java.util.List;
@@ -28,5 +29,7 @@ public interface IUsuarioService {
     public Optional<List<UsuarioDTO>> findByDepartamentoId(Long id);
 
     public Optional<UsuarioDTO>findJefeByDepartamento(Long id);
+
+    public Optional<UsuarioDTO> findByCedula(String cedula);
 
 }

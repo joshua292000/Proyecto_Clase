@@ -46,7 +46,7 @@ public class RolController {
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody RolesDTO rolDTO) {
         try {
-            Optional<RolesDTO> rolCreated = rolService.create(rolDTO);
+            RolesDTO rolCreated = rolService.create(rolDTO);
             return new ResponseEntity<>(rolCreated, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
