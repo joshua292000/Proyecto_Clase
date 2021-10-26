@@ -6,7 +6,6 @@ import org.una.inventario.entities.Marca;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface IMarcaRepository extends JpaRepository<Marca, Long> {
