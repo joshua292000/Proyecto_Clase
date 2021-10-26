@@ -6,11 +6,11 @@ import org.una.inventario.entities.Marca;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IMarcaRepository extends JpaRepository<Marca, Long> {
     public List<Marca>findByNombre(String nombre);
     public List<Marca>findByEstadoMarca(String estado);
     public List<Marca>findByFechaCreacion(Date fechaCreacion);
-
 }
