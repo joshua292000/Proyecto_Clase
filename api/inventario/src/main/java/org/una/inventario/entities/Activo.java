@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "activos")
@@ -21,11 +23,11 @@ public class Activo implements Serializable {
     @ManyToOne
     @JoinColumn(name="categoria_id")
     private Categoria categoria;
-
+*/
    @ManyToOne
     @JoinColumn(name="proveedor_id")
-    private Proveedor proveedor;
- */
+    private Proveedores proveedores;
+
     @ManyToOne
     @JoinColumn(name="marca_id")
     private Marca marca;
@@ -48,6 +50,10 @@ public class Activo implements Serializable {
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaModificacion;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activo")
+    @Builder.Default
+    private List<ContratosGarantias> contratosGarantias = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 
