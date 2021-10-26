@@ -44,7 +44,7 @@ public class ActivoController {
         return new ResponseEntity<>(activoFound, HttpStatus.OK);
     }
 
-    @GetMapping("/findByEstadoActivoa/{estadoMarca}")
+    @GetMapping("/findByEstadoActivo/{estadoActivo}")
     @ApiOperation(value = "Obtiene una lista de activos a partir de su estado", response = ActivoDTO.class, responseContainer = "List", tags = "Activos")
     public ResponseEntity<?> findByEstadoActivo(@PathVariable(value = "estadoActivo") String estadoActivo) {
         Optional<List<ActivoDTO>>activoFound= activoService.findByEstadoActivo(estadoActivo);
