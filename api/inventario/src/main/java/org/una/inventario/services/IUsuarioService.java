@@ -1,6 +1,8 @@
 package org.una.inventario.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.una.inventario.dto.AuthenticationRequest;
+import org.una.inventario.dto.AuthenticationResponse;
 import org.una.inventario.dto.UsuarioDTO;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public interface IUsuarioService {
 
     public void deleteAll();
 
-    public Optional<UsuarioDTO> login(String cedula,String password);
+    public String login(AuthenticationRequest authenticationRequest);
 
     public Optional<List<UsuarioDTO>> findByDepartamentoId(Long id);
 

@@ -1,8 +1,14 @@
 package org.una.inventario.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,10 +16,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.una.inventario.dto.AuthenticationRequest;
+import org.una.inventario.dto.AuthenticationResponse;
 import org.una.inventario.dto.UsuarioDTO;
 import org.una.inventario.entities.Usuario;
+import org.una.inventario.exceptions.MissingInputsException;
 import org.una.inventario.exceptions.NotFoundInformationException;
 import org.una.inventario.exceptions.PasswordIsBlankException;
+import org.una.inventario.jwt.JwtProvider;
 import org.una.inventario.repositories.IUsuarioRepository;
 import org.una.inventario.utils.MapperUtils;
 
@@ -26,6 +37,16 @@ public class UsuarioServiceImplementation implements IUsuarioService, UserDetail
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
+
+    @Autowired
+    private IUsuarioService usuarioService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtProvider jwtProvider;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -83,14 +104,17 @@ public class UsuarioServiceImplementation implements IUsuarioService, UserDetail
         usuarioRepository.deleteAll();
     }
 
+
     @Override
     @Transactional(readOnly = true)
-    public Optional<UsuarioDTO> login(String cedula, String password) {
-        Usuario usuario = usuarioRepository.findByCedulaAndPasswordEncriptado(cedula, password);
-
-        return Optional.ofNullable(MapperUtils.DtoFromEntity(usuario, UsuarioDTO.class));
+    public String login(AuthenticationRequest authenticationRequest) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getCedula(), authenticationRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return jwtProvider.generateToken(authenticationRequest);
 
     }
+
 
     @Override
     @Transactional(readOnly = true)

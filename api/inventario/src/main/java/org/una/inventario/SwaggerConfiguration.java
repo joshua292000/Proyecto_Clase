@@ -4,14 +4,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
+
+import static java.util.Collections.singletonList;
 
 @Configuration
 @EnableSwagger2
@@ -20,6 +21,18 @@ public class SwaggerConfiguration {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .securitySchemes(singletonList(new ApiKey("JWT", "AUTHORIZATION", "HEADER")))
+                .securityContexts(singletonList(
+                        SecurityContext.builder()
+                                .securityReferences(
+                                        singletonList(SecurityReference.builder()
+                                                .reference("JWT")
+                                                .scopes(new AuthorizationScope[0])
+                                                .build()
+                                        )
+                                )
+                                .build())
+                )
                 .select()
                 .apis(
                         RequestHandlerSelectors
@@ -28,13 +41,11 @@ public class SwaggerConfiguration {
                 .build()
                 .apiInfo(apiInfo())
                 .tags(new Tag("Seguridad", "Metodos de Seguridad"),
-                        new Tag("Usuarios", "Entidad de Usuarios"),
-                        new Tag("Departamentos", "Entidad de Departamentos"),
-                        new Tag("Roles", "Entidad de Roles"),
-                        new Tag("Transacciones", "Entidad de Transacciones")
+                        new Tag("Usuarios", "Entidad de Usuarios")
                 );
 
     }
+
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
