@@ -40,4 +40,10 @@ public class PrincipalController {
 
     public void OnActionbtnImprimirReporte(ActionEvent actionEvent) {
     }
+
+    public void OnActionbtnAscendente(ActionEvent actionEvent) {
+    }
+
+    public void OnActionbtnDescendente(ActionEvent actionEvent) {
+    }
 }
