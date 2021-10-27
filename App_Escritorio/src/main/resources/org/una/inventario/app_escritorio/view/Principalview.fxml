@@ -67,21 +67,11 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </JFXRadioButton>
-      <Label fx:id="lblOrdenar" layoutX="23.0" layoutY="341.0" text="Ordenar la información por:">
+      <Label fx:id="lblOrdenar" layoutX="27.0" layoutY="408.0" text="Ordenar la información por:">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnAscendente" buttonType="RAISED" layoutX="35.0" layoutY="373.0" onAction="#OnActionbtnAscendente" prefHeight="28.0" prefWidth="133.0" ripplerFill="#38ab95" style="-fx-background-radius: 50;" text="Ascendente">
-         <font>
-            <Font name="Times New Roman" size="15.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btnDescendente" buttonType="RAISED" layoutX="35.0" layoutY="416.0" onAction="#OnActionbtnDescendente" prefHeight="28.0" prefWidth="133.0" ripplerFill="#38ab95" style="-fx-background-radius: 50;" text="Descendente">
-         <font>
-            <Font name="Times New Roman" size="15.0" />
-         </font>
-      </JFXButton>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="394.0" layoutX="243.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" width="490.0" />
       <Label layoutX="347.0" layoutY="187.0" prefHeight="105.0" prefWidth="283.0" text="Aquí se va a ver&#10; el reporte" textAlignment="CENTER" textFill="WHITE">
          <font>
@@ -94,5 +84,19 @@
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
+      <ComboBox fx:id="cbxPrueba" layoutX="26.0" layoutY="346.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Opciones" />
+      <JFXRadioButton fx:id="cbDescendente" layoutX="62.0" layoutY="457.0" text="Descendente" translateX="4.0">
+         <toggleGroup>
+            <ToggleGroup fx:id="Ordenar" />
+         </toggleGroup>
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXRadioButton>
+      <JFXRadioButton fx:id="cbAscendente" layoutX="65.0" layoutY="434.0" text="Ascendente" toggleGroup="$Ordenar" translateX="1.0">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </JFXRadioButton>
    </children>
 </AnchorPane>

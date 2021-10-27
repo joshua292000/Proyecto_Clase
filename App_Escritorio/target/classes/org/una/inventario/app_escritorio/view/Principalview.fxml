@@ -94,5 +94,6 @@
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
+      <ComboBox fx:id="cbxPrueba" layoutX="27.0" layoutY="32.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Prueba" />
    </children>
 </AnchorPane>

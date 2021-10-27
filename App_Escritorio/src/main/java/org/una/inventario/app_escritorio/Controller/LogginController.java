@@ -37,6 +37,7 @@ public class LogginController extends Controller implements Initializable {
 
         if(login != null){
             FlowController.getInstance().goViewInWindow("Principalview");
+
         }
     }
 }
