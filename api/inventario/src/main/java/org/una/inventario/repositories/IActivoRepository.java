@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface IActivoRepository extends JpaRepository<Activo, Long> {
     public List<Activo> findByNombre(String nombre);
-    public List<Activo>findByEstadoActivo(String estado);
+    public List<Activo>findByEstado(String estado);
     public List<Activo>findByFechaCreacionBetween(Date fechaCreacion, Date fechaModificacion);
 }

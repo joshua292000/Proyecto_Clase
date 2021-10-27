@@ -46,8 +46,8 @@ public class ActivoServiceImplementation implements ActivoService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ActivoDTO>> findByEstadoActivo(String estado) {
-        List<Activo> activoestadoList = activoRepository.findByEstadoActivo(estado);
+    public Optional<List<ActivoDTO>> findByEstado(String estado) {
+        List<Activo> activoestadoList = activoRepository.findByEstado(estado);
         List<ActivoDTO> activoestadoDTOList = MapperUtils.DtoListFromEntityList(activoestadoList, ActivoDTO.class);
         if (activoestadoDTOList.isEmpty()) throw new NotFoundInformationException();
         return Optional.ofNullable(activoestadoDTOList);

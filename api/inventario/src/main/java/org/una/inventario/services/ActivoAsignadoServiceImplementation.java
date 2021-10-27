@@ -38,8 +38,8 @@ public class ActivoAsignadoServiceImplementation implements ActivoAsignadoServic
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ActivoAsignadoDTO>> findByEstadoActivo(String estado) {
-        List<ActivoAsignado> activoAsignadoestadoList = activoAsignadoRepository.findByEstadoActivo(estado);
+    public Optional<List<ActivoAsignadoDTO>> findByEstado(String estado) {
+        List<ActivoAsignado> activoAsignadoestadoList = activoAsignadoRepository.findByEstado(estado);
         List<ActivoAsignadoDTO> activoAsignadoestadoDTOList = MapperUtils.DtoListFromEntityList(activoAsignadoestadoList, ActivoAsignadoDTO.class);
         if (activoAsignadoestadoDTOList.isEmpty()) throw new NotFoundInformationException();
         return Optional.ofNullable(activoAsignadoestadoDTOList);

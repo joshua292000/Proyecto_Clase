@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface IActivoAsignadoRepository extends JpaRepository<ActivoAsignado, Long> {
-    public List<ActivoAsignado> findByEstadoActivo(String estado);
+    public List<ActivoAsignado> findByEstado(String estado);
     public List<ActivoAsignado>findByFechaCreacion(Date fechaCreacion);
 }

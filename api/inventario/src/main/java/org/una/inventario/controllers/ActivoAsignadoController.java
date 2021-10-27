@@ -40,8 +40,8 @@ public class ActivoAsignadoController {
 
     @GetMapping("/findByEstadoActivo/{estadoActivoAsignado}")
     @ApiOperation(value = "Obtiene una lista de activos asignados a partir de su estado", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activos Asignados")
-    public ResponseEntity<?> findByEstadoActivo(@PathVariable(value = "estadoActivoAsignado") String estadoActivoAsignado) {
-        Optional<List<ActivoAsignadoDTO>>activoAsignadoFound= activoAsignadoService.findByEstadoActivo(estadoActivoAsignado);
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "estadoActivoAsignado") String estadoActivoAsignado) {
+        Optional<List<ActivoAsignadoDTO>>activoAsignadoFound= activoAsignadoService.findByEstado(estadoActivoAsignado);
         return new ResponseEntity<>(activoAsignadoFound, HttpStatus.OK);
     }
 
