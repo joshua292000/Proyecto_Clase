@@ -55,6 +55,10 @@ public class Activo implements Serializable {
     @Builder.Default
     private List<ContratosGarantias> contratosGarantias = new ArrayList<>();
 
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "activo")
+   @Builder.Default
+    private List<ActivoAsignado> activoAsignados = new ArrayList<>();
+
     private static final long serialVersionUID = 1L;
 
     @PrePersist
