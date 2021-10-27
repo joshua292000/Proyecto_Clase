@@ -1,16 +1,43 @@
 package org.una.inventario.app_escritorio.Controller;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
 
-public class PrincipalController extends Application {
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 
-    public static void main(String[] args) {
-        launch(args);
+import java.util.Date;
+
+public class PrincipalController {
+    @FXML
+    public JFXRadioButton cbMarca;
+    @FXML
+    public JFXRadioButton cbProveedor;
+    @FXML
+    private JFXButton btnAscendente;
+    @FXML
+    private JFXButton btnDescendente;
+    @FXML
+    private JFXButton btnGenerarReporte;
+    @FXML
+    private JFXButton btnImprimirReporte;
+    @FXML
+    private JFXButton btnVisualizarReporte;
+    @FXML
+    private DatePicker  dtpFInicio;
+    @FXML
+    private DatePicker dtpFFinal;
+
+    public void OnActionbtnGenerarReporte(ActionEvent actionEvent) {
+
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    public void OnActionbtnVisualizarReporte(ActionEvent actionEvent) {
+    }
 
+    public void OnActionbtnImprimirReporte(ActionEvent actionEvent) {
     }
 }
