@@ -2,9 +2,11 @@ package org.una.inventario.app_escritorio.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.una.inventario.app_escritorio.DTO.AuthenticationResponse;
+import org.una.inventario.app_escritorio.Util.AppContext;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -16,6 +18,7 @@ public class AutenticacionService {
             .version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10))
             .build();
+
 
     private static ObjectMapper mapper = new ObjectMapper();
 
@@ -52,9 +55,12 @@ public class AutenticacionService {
             System.out.println("Contraseña correcta");
             System.out.println(response.body());
             AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
-            return authenticationResponse;
+           AppContext.getInstance().set("Rol", authenticationResponse);
 
+            return authenticationResponse;
         }
     return null;
     }
+
+
 }
