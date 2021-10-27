@@ -61,6 +61,39 @@ public class ActivoServiceImplementation implements ActivoService{
         return Optional.ofNullable(FechaactivoDtolist);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<ActivoDTO>> findByActivosxMarcaDescBetweenFechas(Long idMarcaProve, Date startDate, Date endDate) {
+        List<Activo> ActivoList = activoRepository.findByActivosxMarcaDescBetweenFechas(idMarcaProve,startDate,endDate);
+        List<ActivoDTO> ActivoListDTOList = MapperUtils.DtoListFromEntityList(ActivoList,ActivoDTO.class);
+        return Optional.ofNullable(ActivoListDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<ActivoDTO>> findByActivosxMarcaAscBetweenFechas(Long idMarcaProve, Date startDate, Date endDate) {
+        List<Activo> ActivoList = activoRepository.findByActivosxMarcaAscBetweenFechas(idMarcaProve,startDate,endDate);
+        List<ActivoDTO> ActivoListDTOList = MapperUtils.DtoListFromEntityList(ActivoList,ActivoDTO.class);
+        return Optional.ofNullable(ActivoListDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<ActivoDTO>> findByActivosxProveDescBetweenFechas(Long idMarcaProve, Date startDate, Date endDate) {
+        List<Activo> ActivoList = activoRepository.findByActivosxProveDescBetweenFechas(idMarcaProve,startDate,endDate);
+        List<ActivoDTO> ActivoListDTOList = MapperUtils.DtoListFromEntityList(ActivoList,ActivoDTO.class);
+        return Optional.ofNullable(ActivoListDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<ActivoDTO>> findByActivosxProveAscBetweenFechas(Long idMarcaProve, Date startDate, Date endDate) {
+        List<Activo> ActivoList = activoRepository.findByActivosxProveAscBetweenFechas(idMarcaProve,startDate,endDate);
+        List<ActivoDTO> ActivoListDTOList = MapperUtils.DtoListFromEntityList(ActivoList,ActivoDTO.class);
+        return Optional.ofNullable(ActivoListDTOList);
+    }
+
+
     private ActivoDTO getSavedActivoDTO(ActivoDTO activoDTO) {
         Activo activo = MapperUtils.EntityFromDto(activoDTO, Activo.class);
         Activo activoCreated = activoRepository.save(activo);

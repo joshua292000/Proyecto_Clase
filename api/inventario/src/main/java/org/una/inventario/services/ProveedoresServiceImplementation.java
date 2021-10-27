@@ -18,9 +18,6 @@ import java.util.Optional;
 public class ProveedoresServiceImplementation implements ProveedoresService{
 
     @Autowired
-    ProveedoresService proveedoresService;
-
-    @Autowired
     ProveedoresRespository proveedoresRespository;
 
     @Override

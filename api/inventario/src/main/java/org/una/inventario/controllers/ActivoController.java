@@ -62,6 +62,50 @@ public class ActivoController {
         }
     }
 
+    @GetMapping("/findByActivosxMarcaDescBetweenFechas/{idMarcaProve}/{startDate}/{endDate}")
+    @ApiOperation(value = "Obtiene una lista de activos descendente de acuerdo a la marca y dos fechas dadas", response = ActivoDTO.class, responseContainer = "ActivoDTO", tags = "Activo")
+    public ResponseEntity<?> findByActivosxMarcaDescBetweenFechas(@PathVariable(value = "idMarcaProve") Long idMarcaProve, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        try {
+            Optional<List<ActivoDTO>> result = activoService.findByActivosxMarcaDescBetweenFechas(idMarcaProve,startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }  catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/findByActivosxMarcaAscBetweenFechas/{idMarcaProve}/{startDate}/{endDate}")
+    @ApiOperation(value = "Obtiene una lista de activos ascendente de acuerdo a la marca y dos fechas dadas", response = ActivoDTO.class, responseContainer = "ActivoDTO", tags = "Activo")
+    public ResponseEntity<?> findByActivosxMarcaAscBetweenFechas(@PathVariable(value = "idMarcaProve") Long idMarcaProve, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        try {
+            Optional<List<ActivoDTO>> result = activoService.findByActivosxMarcaAscBetweenFechas(idMarcaProve,startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }  catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/findByActivosxProveDescBetweenFechas/{idMarcaProve}/{startDate}/{endDate}")
+    @ApiOperation(value = "Obtiene una lista de activos descendente de acuerdo a los proveedores y dos fechas dadas", response = ActivoDTO.class, responseContainer = "ActivoDTO", tags = "Activo")
+    public ResponseEntity<?> findByActivosxProveDescBetweenFechas(@PathVariable(value = "idMarcaProve") Long idMarcaProve, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        try {
+            Optional<List<ActivoDTO>> result = activoService.findByActivosxProveDescBetweenFechas(idMarcaProve,startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }  catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/findByActivosxProveAscBetweenFechas/{idMarcaProve}/{startDate}/{endDate}")
+    @ApiOperation(value = "Obtiene una lista de activos ascendente de acuerdo a los proveedores y dos fechas dadas", response = ActivoDTO.class, responseContainer = "ActivoDTO", tags = "Activo")
+    public ResponseEntity<?> findByActivosxProveAscBetweenFechas(@PathVariable(value = "idMarcaProve") Long idMarcaProve, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        try {
+            Optional<List<ActivoDTO>> result = activoService.findByActivosxProveAscBetweenFechas(idMarcaProve,startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }  catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/")
     @ResponseBody

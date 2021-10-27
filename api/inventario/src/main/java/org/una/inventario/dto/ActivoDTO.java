@@ -12,9 +12,9 @@ import java.util.Date;
 @Builder
 public class ActivoDTO {
     private Long id;
-    //private Categoria categoria;
-    //private Proveedor proveedor;
-    private Marca marca;
+    private CategoriasDTO categoria;
+    private ProveedoresDTO proveedor;
+    private MarcaDTO marca;
     private Long continente;
     private String nombre;
     private String estado;

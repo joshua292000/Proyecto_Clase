@@ -35,7 +35,9 @@ public class PrincipalController extends Controller implements Initializable {
     private DatePicker dtpFFinal;
 
     public void OnActionbtnGenerarReporte(ActionEvent actionEvent) {
-
+        if(!dtpFInicio.getEditor().getText().isEmpty() && !dtpFFinal.getEditor().getText().isEmpty()){
+            System.out.println("No se digitaron datos");
+        }
     }
 
     public void OnActionbtnVisualizarReporte(ActionEvent actionEvent) {

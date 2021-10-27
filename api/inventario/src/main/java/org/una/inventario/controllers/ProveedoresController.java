@@ -19,7 +19,7 @@ import java.util.Optional;
 @Api(tags = {"Proveedores"})
 public class ProveedoresController {
     @Autowired
-    ProveedoresService proveedoresService;
+    private ProveedoresService proveedoresService;
 
     @GetMapping()
     @ApiOperation(value = "Obtiene una lista de todos los proveedores", response = ProveedoresDTO.class, responseContainer = "List", tags = "Proveedores")
@@ -37,9 +37,9 @@ public class ProveedoresController {
 
     }
 
-    @GetMapping("/{tipo}")
+    @GetMapping("/findByNombre/{nombre}")
     @ApiOperation(value = "Obtiene un proveedor por medio de nombre", response = ProveedoresDTO.class, tags = "Proveedores")
-    public ResponseEntity<?> findByNombre(@PathVariable(value = "tipo") String nombre) {
+    public ResponseEntity<?> findByNombre(@PathVariable(value = "nombre") String nombre) {
         Optional<ProveedoresDTO> proveedorFound = proveedoresService.findByNombre(nombre);
         return new ResponseEntity<>(proveedorFound, HttpStatus.OK);
     }

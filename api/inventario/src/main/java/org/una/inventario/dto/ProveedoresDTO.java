@@ -7,6 +7,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class ProveedoresDTO {
     private Long id;
     private String nombre;
@@ -16,4 +17,5 @@ public class ProveedoresDTO {
     private String estado;
     private Date fechaCreacion;
     private Date fechaModificacion;
+    private ActivoDTO activos;
 }
