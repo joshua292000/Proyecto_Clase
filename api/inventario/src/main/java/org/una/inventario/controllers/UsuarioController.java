@@ -13,7 +13,7 @@ import org.una.inventario.dto.UsuarioDTO;
 import org.una.inventario.exceptions.InvalidCredentialsException;
 import org.una.inventario.exceptions.MissingInputsException;
 import org.una.inventario.services.IUsuarioService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -40,27 +40,6 @@ public class UsuarioController {
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         Optional<UsuarioDTO> usuarioFound = usuarioService.findById(id);
         return new ResponseEntity<>(usuarioFound, HttpStatus.OK);
-
-    }
-
-    @PutMapping("/login")
-    @ResponseBody
-    @ApiOperation(value = "Inicio de sesión para conseguir un token de acceso", response = UsuarioDTO.class, tags = "Seguridad")
-    public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest authenticationRequest, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            throw new MissingInputsException();
-        }
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-        String token = usuarioService.login(authenticationRequest);
-        if (!token.isBlank()) {
-            authenticationResponse.setJwt(token);
-            //TODO: Complete this   authenticationResponse.setUsuario(usuario);
-            //TODO: Complete this    authenticationResponse.setPermisos(permisosOtorgados);
-            return new ResponseEntity(authenticationResponse, HttpStatus.OK);
-        } else {
-            throw new InvalidCredentialsException();
-        }
 
     }
 

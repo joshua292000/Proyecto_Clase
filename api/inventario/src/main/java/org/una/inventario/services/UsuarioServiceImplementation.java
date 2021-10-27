@@ -107,17 +107,6 @@ public class UsuarioServiceImplementation implements IUsuarioService, UserDetail
 
     @Override
     @Transactional(readOnly = true)
-    public String login(AuthenticationRequest authenticationRequest) {
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getCedula(), authenticationRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtProvider.generateToken(authenticationRequest);
-
-    }
-
-
-    @Override
-    @Transactional(readOnly = true)
     public Optional<List<UsuarioDTO>> findByDepartamentoId(Long id) {
         List<Usuario> usuarioList = usuarioRepository.findByDepartamentoId(id);
         if (usuarioList.isEmpty()) throw new NotFoundInformationException();
@@ -155,11 +144,7 @@ public class UsuarioServiceImplementation implements IUsuarioService, UserDetail
     @Override
     @Transactional(readOnly = true)
     public Optional<List<UsuarioDTO>> findByCedulaAproximate(String cedula) {
-        //if (cedula.trim().isEmpty()) throw new NotFoundInformationException();
         List<Usuario> usuarioList = usuarioRepository.findByCedulaContaining(cedula);
-        /*if (usuarioList.isEmpty()) {
-            throw new NotFoundInformationException();
-        }*/
         List<UsuarioDTO> usuarioDTOList = MapperUtils.DtoListFromEntityList(usuarioList, UsuarioDTO.class);
         return Optional.ofNullable(usuarioDTOList);
     }
@@ -181,7 +166,6 @@ public class UsuarioServiceImplementation implements IUsuarioService, UserDetail
             Usuario usuario = usuarioBuscado.get();
             List<GrantedAuthority> roles = new ArrayList<>();
             roles.add(new SimpleGrantedAuthority(usuario.getRol().getNombre()));
-            //UserDetails userDetails = new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
             return new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
         } else {
             throw new UsernameNotFoundException("Username not found, check your request");

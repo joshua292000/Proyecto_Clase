@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.una.inventario.dto.AlertasDTO;
 import org.una.inventario.dto.ContratosGarantiasDTO;
 import org.una.inventario.services.ContratosGarantiasService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 import java.util.Optional;
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.una.inventario.dto.MarcaDTO;
 import org.una.inventario.dto.RolesDTO;
 import org.una.inventario.services.MarcaService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

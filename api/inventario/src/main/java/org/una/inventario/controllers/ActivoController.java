@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.una.inventario.dto.ActivoDTO;
 import org.una.inventario.services.ActivoService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

@@ -11,7 +11,7 @@ import org.una.inventario.dto.ActivoDTO;
 import org.una.inventario.dto.MarcaDTO;
 import org.una.inventario.services.ActivoAsignadoService;
 import org.una.inventario.services.ActivoService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

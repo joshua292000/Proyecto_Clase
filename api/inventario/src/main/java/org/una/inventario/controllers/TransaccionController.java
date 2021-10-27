@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.una.inventario.dto.TransaccionDTO;
 import org.una.inventario.services.TransaccionService;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

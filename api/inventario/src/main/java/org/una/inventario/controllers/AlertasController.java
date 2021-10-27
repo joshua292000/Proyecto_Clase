@@ -11,6 +11,7 @@ import org.una.inventario.dto.AlertasDTO;
 import org.una.inventario.services.AlertasService;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping("/alertas")

@@ -26,8 +26,6 @@ public interface IUsuarioService {
 
     public void deleteAll();
 
-    public String login(AuthenticationRequest authenticationRequest);
-
     public Optional<List<UsuarioDTO>> findByDepartamentoId(Long id);
 
     public Optional<UsuarioDTO>findJefeByDepartamento(Long id);
