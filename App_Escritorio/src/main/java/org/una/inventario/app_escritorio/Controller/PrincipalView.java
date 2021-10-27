@@ -1,4 +1,4 @@
-package org.una.inventario.app_escritorio.Views;
+package org.una.inventario.app_escritorio.Controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

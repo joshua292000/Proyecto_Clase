@@ -19,4 +19,6 @@ module org.una.inventario.app_escritorio {
     exports org.una.inventario.app_escritorio;
     exports org.una.inventario.app_escritorio.Views;
     opens org.una.inventario.app_escritorio.Views to javafx.fxml;
+    exports org.una.inventario.app_escritorio.Controller;
+    opens org.una.inventario.app_escritorio.Controller to javafx.fxml;
 }
