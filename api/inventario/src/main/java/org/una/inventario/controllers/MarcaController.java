@@ -37,23 +37,23 @@ public class MarcaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/findByNombre/{nombreMarca}")
+    @GetMapping("/findByNombre/{nombre}")
     @ApiOperation(value = "Obtiene una lista de marcas a partir de su nombre", response = MarcaDTO.class, responseContainer = "List", tags = "Marcas")
-    public ResponseEntity<?> findByNombre(@PathVariable(value = "nombreMarca") String nombreMarca) {
+    public ResponseEntity<?> findByNombre(@PathVariable(value = "nombre") String nombreMarca) {
         Optional<List<MarcaDTO>>marcaFound= marcaService.findByNombre(nombreMarca);
         return new ResponseEntity<>(marcaFound, HttpStatus.OK);
     }
 
-    @GetMapping("/findByEstadoMarca/{estadoMarca}")
+    @GetMapping("/findByEstado/{estado}")
     @ApiOperation(value = "Obtiene una lista de marcas a partir de su estado", response = MarcaDTO.class, responseContainer = "List", tags = "Marcas")
-    public ResponseEntity<?> findByEstadoMarca(@PathVariable(value = "estadoMarca") String estadoMarca) {
-        Optional<List<MarcaDTO>>marcaFound= marcaService.findByEstadoMarca(estadoMarca);
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") String estadoMarca) {
+        Optional<List<MarcaDTO>>marcaFound= marcaService.findByEstado(estadoMarca);
         return new ResponseEntity<>(marcaFound, HttpStatus.OK);
     }
 
-    @GetMapping("/findByFechaCreacion/{fechaCreacionMarca}")
+    @GetMapping("/findByFechaCreacion/{fechaCreacion}")
     @ApiOperation(value = "Obtiene una lista de marcas a partir de su FechaCreacion", response = MarcaDTO.class, responseContainer = "List", tags = "Marcas")
-    public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fechaCreacionMarca") Date fechaCreacionMarca) {
+    public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fechaCreacion") Date fechaCreacionMarca) {
         Optional<List<MarcaDTO>>marcaFound= marcaService.findByFechaCreacion(fechaCreacionMarca);
         return new ResponseEntity<>(marcaFound, HttpStatus.OK);
     }

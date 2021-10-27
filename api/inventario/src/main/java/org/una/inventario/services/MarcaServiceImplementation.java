@@ -46,8 +46,8 @@ public class MarcaServiceImplementation implements MarcaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<MarcaDTO>> findByEstadoMarca(String estado) {
-        List<Marca> estadoList = marcaRepository.findByEstadoMarca(estado);
+    public Optional<List<MarcaDTO>> findByEstado(String estado) {
+        List<Marca> estadoList = marcaRepository.findByEstado(estado);
         List<MarcaDTO> estadoDTOList = MapperUtils.DtoListFromEntityList(estadoList, MarcaDTO.class);
         if (estadoDTOList.isEmpty()) throw new NotFoundInformationException();
         return Optional.ofNullable(estadoDTOList);

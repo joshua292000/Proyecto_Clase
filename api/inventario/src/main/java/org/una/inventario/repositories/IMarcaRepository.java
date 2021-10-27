@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface IMarcaRepository extends JpaRepository<Marca, Long> {
     public List<Marca>findByNombre(String nombre);
-    public List<Marca>findByEstadoMarca(String estado);
+    public List<Marca>findByEstado(String estado);
     public List<Marca>findByFechaCreacion(Date fechaCreacion);
 }

@@ -38,16 +38,16 @@ public class ActivoAsignadoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/findByEstadoActivo/{estadoActivoAsignado}")
+    @GetMapping("/findByEstadoActivo/{estado}")
     @ApiOperation(value = "Obtiene una lista de activos asignados a partir de su estado", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activos Asignados")
-    public ResponseEntity<?> findByEstado(@PathVariable(value = "estadoActivoAsignado") String estadoActivoAsignado) {
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") String estadoActivoAsignado) {
         Optional<List<ActivoAsignadoDTO>>activoAsignadoFound= activoAsignadoService.findByEstado(estadoActivoAsignado);
         return new ResponseEntity<>(activoAsignadoFound, HttpStatus.OK);
     }
 
-    @GetMapping("/findByFechaCreacion/{fechaCreacionActivoAsignado}")
+    @GetMapping("/findByFechaCreacion/{fechaCreacion}")
     @ApiOperation(value = "Obtiene una lista de marcas a partir de su FechaCreacion", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activos Asignados")
-    public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fechaCreacionActivoAsignado") Date fechaCreacionActivoAsignado) {
+    public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fechaCreacion") Date fechaCreacionActivoAsignado) {
         Optional<List<ActivoAsignadoDTO>>activoAsignadoFound= activoAsignadoService.findByFechaCreacion(fechaCreacionActivoAsignado);
         return new ResponseEntity<>(activoAsignadoFound, HttpStatus.OK);
     }
