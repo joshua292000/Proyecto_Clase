@@ -30,7 +30,7 @@ public class MarcaController {
     }
 
     @GetMapping()
-    @ApiOperation(value = "Obtiene una lista de todos las marcas", response = MarcaDTO.class, responseContainer = "List", tags = "Marcas")
+    @ApiOperation(value = "Obtiene una lista de todos las marcas", response = MarcaDTO.class, responseContainer = "List", tags = "Marca")
     public @ResponseBody
     ResponseEntity<?> findAll() {
         Optional<List<MarcaDTO>> result = marcaService.findAll();
@@ -38,21 +38,21 @@ public class MarcaController {
     }
 
     @GetMapping("/findByNombre/{nombre}")
-    @ApiOperation(value = "Obtiene una lista de marcas a partir de su nombre", response = MarcaDTO.class, responseContainer = "List", tags = "Marcas")
+    @ApiOperation(value = "Obtiene una lista de marcas a partir de su nombre", response = MarcaDTO.class, responseContainer = "List", tags = "Marca")
     public ResponseEntity<?> findByNombre(@PathVariable(value = "nombre") String nombreMarca) {
         Optional<List<MarcaDTO>>marcaFound= marcaService.findByNombre(nombreMarca);
         return new ResponseEntity<>(marcaFound, HttpStatus.OK);
     }
 
     @GetMapping("/findByEstado/{estado}")
-    @ApiOperation(value = "Obtiene una lista de marcas a partir de su estado", response = MarcaDTO.class, responseContainer = "List", tags = "Marcas")
+    @ApiOperation(value = "Obtiene una lista de marcas a partir de su estado", response = MarcaDTO.class, responseContainer = "List", tags = "Marca")
     public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") String estadoMarca) {
         Optional<List<MarcaDTO>>marcaFound= marcaService.findByEstado(estadoMarca);
         return new ResponseEntity<>(marcaFound, HttpStatus.OK);
     }
 
     @GetMapping("/findByFechaCreacion/{fechaCreacion}")
-    @ApiOperation(value = "Obtiene una lista de marcas a partir de su FechaCreacion", response = MarcaDTO.class, responseContainer = "List", tags = "Marcas")
+    @ApiOperation(value = "Obtiene una lista de marcas a partir de su FechaCreacion", response = MarcaDTO.class, responseContainer = "List", tags = "Marca")
     public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fechaCreacion") Date fechaCreacionMarca) {
         Optional<List<MarcaDTO>>marcaFound= marcaService.findByFechaCreacion(fechaCreacionMarca);
         return new ResponseEntity<>(marcaFound, HttpStatus.OK);

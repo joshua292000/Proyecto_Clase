@@ -29,7 +29,7 @@ public class ActivoController {
     }
 
     @GetMapping()
-    @ApiOperation(value = "Obtiene una lista de todos los activos", response = ActivoDTO.class, responseContainer = "List", tags = "Activos")
+    @ApiOperation(value = "Obtiene una lista de todos los activos", response = ActivoDTO.class, responseContainer = "List", tags = "Activo")
     public @ResponseBody
     ResponseEntity<?> findAll() {
         Optional<List<ActivoDTO>> result = activoService.findAll();
@@ -38,21 +38,21 @@ public class ActivoController {
 
 
     @GetMapping("/findByNombre/{nombre}")
-    @ApiOperation(value = "Obtiene una lista de activos a partir de su nombre", response = ActivoDTO.class, responseContainer = "List", tags = "Activos")
+    @ApiOperation(value = "Obtiene una lista de activos a partir de su nombre", response = ActivoDTO.class, responseContainer = "List", tags = "Activo")
     public ResponseEntity<?> findByNombre(@PathVariable(value = "nombre") String nombreActivo) {
         Optional<List<ActivoDTO>>activoFound= activoService.findByNombre(nombreActivo);
         return new ResponseEntity<>(activoFound, HttpStatus.OK);
     }
 
     @GetMapping("/findByEstado/{estado}")
-    @ApiOperation(value = "Obtiene una lista de activos a partir de su estado", response = ActivoDTO.class, responseContainer = "List", tags = "Activos")
+    @ApiOperation(value = "Obtiene una lista de activos a partir de su estado", response = ActivoDTO.class, responseContainer = "List", tags = "Activo")
     public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") String estadoActivo) {
         Optional<List<ActivoDTO>>activoFound= activoService.findByEstado(estadoActivo);
         return new ResponseEntity<>(activoFound, HttpStatus.OK);
     }
 
     @GetMapping("/findByFechaCreacionBetween/{fechaCreacion}/{fechaModificacion}")
-    @ApiOperation(value = "Obtiene una lista de Activos por fecha de creacion", response = ActivoDTO.class, responseContainer = "ActivoDTO" , tags = "Activos")
+    @ApiOperation(value = "Obtiene una lista de Activos por fecha de creacion", response = ActivoDTO.class, responseContainer = "ActivoDTO" , tags = "Activo")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "fechaCreacion") @DateTimeFormat(pattern = "yyyy-MM-yy") Date fechaCreacion, @PathVariable(value = "fechaModificacion") @DateTimeFormat(pattern = "yyyy-MM-yy")Date fechaModificacion){
         try{
             Optional<List<ActivoDTO>> result = activoService.findByFechaCreacionBetween(fechaCreacion, fechaModificacion);

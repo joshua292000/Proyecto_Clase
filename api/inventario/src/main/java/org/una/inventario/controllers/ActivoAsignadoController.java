@@ -18,20 +18,20 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/activoAsignado")
-@Api(tags = {"ActivoAsignado"})
+@Api(tags = {"Activo Asignado"})
 public class ActivoAsignadoController {
     @Autowired
     private ActivoAsignadoService activoAsignadoService;
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Obtiene un activo asignado a partir de su id", response = ActivoAsignadoDTO.class, tags = "Activos Asignados")
+    @ApiOperation(value = "Obtiene un activo asignado a partir de su id", response = ActivoAsignadoDTO.class, tags = "Activo Asignado")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         Optional<ActivoAsignadoDTO> activoAsignadoFound = activoAsignadoService.findById(id);
         return new ResponseEntity<>(activoAsignadoFound, HttpStatus.OK);
     }
 
     @GetMapping()
-    @ApiOperation(value = "Obtiene una lista de todos los Activos Asignado", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activos Asignados")
+    @ApiOperation(value = "Obtiene una lista de todos los Activos Asignado", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activo Asignado")
     public @ResponseBody
     ResponseEntity<?> findAll() {
         Optional<List<ActivoAsignadoDTO>> result = activoAsignadoService.findAll();
@@ -39,14 +39,14 @@ public class ActivoAsignadoController {
     }
 
     @GetMapping("/findByEstadoActivo/{estado}")
-    @ApiOperation(value = "Obtiene una lista de activos asignados a partir de su estado", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activos Asignados")
+    @ApiOperation(value = "Obtiene una lista de activos asignados a partir de su estado", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activo Asignado")
     public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") String estadoActivoAsignado) {
         Optional<List<ActivoAsignadoDTO>>activoAsignadoFound= activoAsignadoService.findByEstado(estadoActivoAsignado);
         return new ResponseEntity<>(activoAsignadoFound, HttpStatus.OK);
     }
 
     @GetMapping("/findByFechaCreacion/{fechaCreacion}")
-    @ApiOperation(value = "Obtiene una lista de marcas a partir de su FechaCreacion", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activos Asignados")
+    @ApiOperation(value = "Obtiene una lista de marcas a partir de su FechaCreacion", response = ActivoAsignadoDTO.class, responseContainer = "List", tags = "Activo Asignado")
     public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fechaCreacion") Date fechaCreacionActivoAsignado) {
         Optional<List<ActivoAsignadoDTO>>activoAsignadoFound= activoAsignadoService.findByFechaCreacion(fechaCreacionActivoAsignado);
         return new ResponseEntity<>(activoAsignadoFound, HttpStatus.OK);
