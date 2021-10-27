@@ -1,4 +1,4 @@
-package org.una.inventario.app_escritorio;
+package org.una.inventario.app_escritorio.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
