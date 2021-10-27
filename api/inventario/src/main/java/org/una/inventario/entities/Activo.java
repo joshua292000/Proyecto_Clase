@@ -19,11 +19,11 @@ public class Activo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-/*
+
     @ManyToOne
-    @JoinColumn(name="categoria_id")
-    private Categoria categoria;
-*/
+    @JoinColumn(name="categorias_id")
+    private Categorias categorias;
+
    @ManyToOne
     @JoinColumn(name="proveedor_id")
     private Proveedores proveedores;
@@ -54,6 +54,10 @@ public class Activo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activo")
     @Builder.Default
     private List<ContratosGarantias> contratosGarantias = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activo")
+    @Builder.Default
+    private List<Valuaciones> valuaciones = new ArrayList<>();
 
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activo")
    @Builder.Default
