@@ -28,7 +28,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class PrincipalController extends Controller implements Initializable {
-
+    @FXML
+    public JFXRadioButton cbDescendente;
+    @FXML
+    public JFXRadioButton cbAscendente;
     @FXML
     private AnchorPane APFondo;
 
@@ -36,10 +39,6 @@ public class PrincipalController extends Controller implements Initializable {
     public JFXRadioButton cbMarca;
     @FXML
     public JFXRadioButton cbProveedor;
-    @FXML
-    private JFXButton btnAscendente;
-    @FXML
-    private JFXButton btnDescendente;
     @FXML
     private JFXButton btnGenerarReporte;
     @FXML
@@ -71,12 +70,6 @@ public class PrincipalController extends Controller implements Initializable {
     }
 
     public void OnActionbtnImprimirReporte(ActionEvent actionEvent) {
-    }
-
-    public void OnActionbtnAscendente(ActionEvent actionEvent) {
-    }
-
-    public void OnActionbtnDescendente(ActionEvent actionEvent) {
     }
 
     public void OnActionDespliegue(ActionEvent actionEvent) {

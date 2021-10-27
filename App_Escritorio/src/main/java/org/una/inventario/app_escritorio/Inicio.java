@@ -11,7 +11,6 @@ public class Inicio extends Application{
     public void start(Stage stage) throws Exception {
         FlowController.getInstance().InitializeFlow(stage, null);
         FlowController.getInstance().goViewInWindow("Loggin");
+
     }
-
-
 }
