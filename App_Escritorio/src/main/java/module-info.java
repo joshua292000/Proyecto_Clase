@@ -6,6 +6,7 @@ module org.una.inventario.app_escritorio {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires java.logging;
+    requires lombok;
     requires com.jfoenix;
     requires java.net.http;
     requires com.fasterxml.jackson.databind;

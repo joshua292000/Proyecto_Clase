@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.inventario.app_escritorio.Controller.LogginController">
+<AnchorPane fx:id="root" prefHeight="443.0" prefWidth="415.0" style="-fx-background-color: #5fc3d9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.inventario.app_escritorio.Controller.LogginController">
    <children>
-      <Label fx:id="lblHola" layoutX="215.0" layoutY="144.0" prefHeight="116.0" prefWidth="181.0" text="Hola" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e7eaee" height="406.0" layoutX="26.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" width="367.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="127.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/usuario.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="txtUsuario" labelFloat="true" layoutX="127.0" layoutY="209.0" prefHeight="25.0" prefWidth="161.0" promptText="Usuario:" />
+      <JFXPasswordField fx:id="txtContrasenia" labelFloat="true" layoutX="127.0" layoutY="284.0" prefHeight="25.0" prefWidth="161.0" promptText="Contraseña:" />
+      <JFXButton fx:id="btnIngresar" buttonType="RAISED" layoutX="147.0" layoutY="373.0" onAction="#OnActionbtnIngresar" prefHeight="25.0" prefWidth="105.0" ripplerFill="#5fc3d9" style="-fx-background-color: #5b77da;" text="Ingresar" />
    </children>
 </AnchorPane>
