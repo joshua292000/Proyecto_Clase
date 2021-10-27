@@ -12,7 +12,7 @@ public interface RolesService {
 
     public Optional<List<RolesDTO>> findByNombreAproximateIgnoreCase(String nombre);
 
-    public RolesDTO create(RolesDTO rolesDTO);
+    public Optional<RolesDTO> create(RolesDTO rolesDTO);
 
     public Optional<RolesDTO> update(RolesDTO rolesDTO, Long id);
 

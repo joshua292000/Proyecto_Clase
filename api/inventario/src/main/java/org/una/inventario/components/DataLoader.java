@@ -39,11 +39,11 @@ public class DataLoader implements ApplicationRunner {
             Optional<DepartamentoDTO> cajasDepartamento = departamentoService.create(DepartamentoDTO.builder().nombre("Cajas").build());
             Optional<DepartamentoDTO> informaticaDepartamento = departamentoService.create(DepartamentoDTO.builder().nombre("Informatica").build());
 
-            RolesDTO colaboradorRol = rolService.create(RolesDTO.builder().nombre("Colaborador").build());
-            RolesDTO auditorRol = rolService.create(RolesDTO.builder().nombre("Auditor").build());
-            RolesDTO contadorRol = rolService.create(RolesDTO.builder().nombre("Contador").build());
-            RolesDTO usuarioRol = rolService.create(RolesDTO.builder().nombre("Usuario").build());
-            RolesDTO administradorRol = rolService.create(RolesDTO.builder().nombre("Administrador").build());
+            Optional<RolesDTO> colaboradorRol = rolService.create(RolesDTO.builder().nombre(RolesTypes.ROLE_COLABORADOR.name()).build());
+            Optional<RolesDTO> auditorRol = rolService.create(RolesDTO.builder().nombre(RolesTypes.ROLE_AUDITOR.name()).build());
+            Optional< RolesDTO> contadorRol = rolService.create(RolesDTO.builder().nombre(RolesTypes.ROLE_CONTADOR.name()).build());
+            Optional< RolesDTO> usuarioRol = rolService.create(RolesDTO.builder().nombre(RolesTypes.ROLE_USUARIO.name()).build());
+            Optional<RolesDTO> administradorRol = rolService.create(RolesDTO.builder().nombre(RolesTypes.ROLE_ADMINISTRADOR.name()).build());
 
             UsuarioDTO cajeroUsuario = UsuarioDTO.builder()
 
@@ -51,7 +51,7 @@ public class DataLoader implements ApplicationRunner {
                     .nombreCompleto("Joselyne Moras")
                     .passwordEncriptado("Una2021")
                     .departamento(cajasDepartamento.orElseThrow())
-                    .rol(usuarioRol).build();
+                    .rol(usuarioRol.orElseThrow()).build();
             usuarioService.create(cajeroUsuario);
 
             UsuarioDTO contadorUsuario = UsuarioDTO.builder()
@@ -60,7 +60,7 @@ public class DataLoader implements ApplicationRunner {
                     .esJefe(true)
                     .passwordEncriptado("Una2021")
                     .departamento(contabilidadDepartamento.orElseThrow())
-                    .rol(contadorRol).build();
+                    .rol(contadorRol.orElseThrow()).build();
             usuarioService.create(contadorUsuario);
 
             UsuarioDTO administradorUsuario = UsuarioDTO.builder()
@@ -68,7 +68,7 @@ public class DataLoader implements ApplicationRunner {
                     .nombreCompleto("Usuario Administrador")
                     .passwordEncriptado(password)
                     .departamento(informaticaDepartamento.orElseThrow())
-                    .rol(administradorRol).build();
+                    .rol(administradorRol.orElseThrow()).build();
             usuarioService.create(administradorUsuario);
 
             System.out.println("Se agrega el usuario inicial a la aplicación");

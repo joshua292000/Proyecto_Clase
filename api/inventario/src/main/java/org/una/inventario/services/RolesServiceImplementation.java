@@ -35,8 +35,8 @@ public class RolesServiceImplementation implements RolesService{
 
     @Override
     @Transactional
-    public RolesDTO create(RolesDTO rolDTO) {
-        return getSavedRolDTO(rolDTO);
+    public Optional<RolesDTO> create(RolesDTO rolDTO) {
+        return Optional.ofNullable(getSavedRolDTO(rolDTO));
     }
 
     @Override
