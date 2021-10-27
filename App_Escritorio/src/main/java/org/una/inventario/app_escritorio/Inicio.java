@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.una.inventario.app_escritorio.Util.FlowController;
 
-public class Inicio extends Application {
+public class Inicio extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -13,7 +13,5 @@ public class Inicio extends Application {
         FlowController.getInstance().goMain();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+
 }
