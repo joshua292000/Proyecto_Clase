@@ -5,13 +5,16 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 
-public class PrincipalController {
+public class PrincipalController extends Controller implements Initializable {
     @FXML
     public JFXRadioButton cbMarca;
     @FXML
@@ -45,5 +48,15 @@ public class PrincipalController {
     }
 
     public void OnActionbtnDescendente(ActionEvent actionEvent) {
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }
