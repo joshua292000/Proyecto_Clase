@@ -78,17 +78,16 @@
             <Font size="40.0" />
          </font>
       </Label>
-      <TableView layoutX="243.0" layoutY="79.0" prefHeight="394.0" prefWidth="496.0">
+      <TableView fx:id="tbvContenido" layoutX="243.0" layoutY="79.0" prefHeight="394.0" prefWidth="496.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="tcIdx" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="tcNombre" prefWidth="90.0" text="Nombre" />
+            <TableColumn fx:id="tcFecha" prefWidth="170.0" text="Fecha de creacion" />
+            <TableColumn fx:id="tcEstado" prefWidth="77.0" text="Estado" />
+            <TableColumn fx:id="tcMarca" prefWidth="79.0" text="Marca" />
         </columns>
       </TableView>
-<<<<<<< Updated upstream
-      <ComboBox fx:id="cbxPrueba" disable="true" layoutX="26.0" layoutY="346.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Opciones" />
-=======
       <ComboBox fx:id="cbxPrueba" layoutX="26.0" layoutY="346.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Opciones" />
->>>>>>> Stashed changes
       <JFXRadioButton fx:id="cbDescendente" layoutX="62.0" layoutY="457.0" onAction="#OnActioncbDescendente" text="Descendente" translateX="4.0">
          <toggleGroup>
             <ToggleGroup fx:id="Ordenar" />

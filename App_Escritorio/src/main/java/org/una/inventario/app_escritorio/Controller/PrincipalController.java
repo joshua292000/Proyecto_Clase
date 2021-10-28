@@ -8,10 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.una.inventario.app_escritorio.DTO.ActivoDTO;
 import org.una.inventario.app_escritorio.DTO.AuthenticationResponse;
@@ -26,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.time.Duration;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -51,8 +50,21 @@ public class PrincipalController extends Controller implements Initializable {
     private DatePicker dtpFInicio;
     @FXML
     private DatePicker dtpFFinal;
+    @FXML
+    private TableView tbvContenido;
+    @FXML
+    private TableColumn tcIdx;
+    @FXML
+    private TableColumn tcNombre;
+    @FXML
+    private TableColumn tcFecha;
+    @FXML
+    public TableColumn tcEstado;
+    @FXML
+    private TableColumn tcMarca;
 
     private  ObservableList<String> options = FXCollections.observableArrayList();
+    private  ObservableList<String> options2 = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox cbxPrueba = new ComboBox(options);
@@ -60,17 +72,56 @@ public class PrincipalController extends Controller implements Initializable {
     private int tipo=0;
     private int AntDec =0;
 
-
     public void OnActionbtnGenerarReporte(ActionEvent actionEvent) throws IOException, InterruptedException {
-        int id = 1;
+        String id;
+        String ids="";
+        int numero=0;
+        id = cbxPrueba.getValue().toString();
+        char [] split = id.toCharArray();
+        for(int x=0;x<split.length;x++){
+            if(Character.isDigit(split[x])){
+                ids+=split[x];
+            }
+        }
+        numero=Integer.parseInt(ids);
+        System.out.println("res "+numero);
+
         if(tipo==2 && AntDec==2){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo1(id,dtpFInicio.getValue(),dtpFFinal.getValue());
+            List<ActivoDTO> activo = ConsultasService.ObtenerActivo1(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
+            if(activo!=null){
+                for(ActivoDTO activos:activo){
+                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                }
+                this.tbvContenido.setItems(options2);
+            }
         }else if(tipo==2 && AntDec==1){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo2(id,dtpFInicio.getValue(),dtpFFinal.getValue());
+            List<ActivoDTO> activo = ConsultasService.ObtenerActivo2(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
+            if(activo!=null){
+                System.out.println("Entre");
+                for(ActivoDTO activos:activo){
+                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                }
+                this.tbvContenido.setItems(options2);
+                System.out.println(options2);
+            }
         }else if(tipo==1 && AntDec==1){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo3(id,dtpFInicio.getValue(),dtpFFinal.getValue());
+            List<ActivoDTO> activo = ConsultasService.ObtenerActivo3(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
+            if(activo!=null){
+
+                for(ActivoDTO activos:activo){
+                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                }
+                this.tbvContenido.setItems(options2);
+
+            }
         }else if(tipo==1 && AntDec==2){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo4(id,dtpFInicio.getValue(),dtpFFinal.getValue());
+            List<ActivoDTO> activo = ConsultasService.ObtenerActivo4(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
+            if(activo!=null){
+                for(ActivoDTO activos:activo){
+                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                }
+                this.tbvContenido.setItems(options2);
+            }
         }
 
     }
@@ -83,13 +134,11 @@ public class PrincipalController extends Controller implements Initializable {
 
     public void OnActionDespliegue(ActionEvent actionEvent) {
 
-
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+       //ad LlenarTabla();
     }
 
     @Override
@@ -135,5 +184,15 @@ public class PrincipalController extends Controller implements Initializable {
             cbxPrueba.setItems(options);
 
         }
+    }
+
+    public void LlenarTabla(){
+        this.tcIdx.setCellValueFactory(new PropertyValueFactory("id"));
+        this.tcNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+        this.tcMarca.setCellValueFactory(new PropertyValueFactory("marca"));
+        this.tcFecha.setCellValueFactory(new PropertyValueFactory("fecha"));
+        this.tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
+        options2.add(""+""+""+""+"");
+        this.tbvContenido.setItems(options2);
     }
 }
