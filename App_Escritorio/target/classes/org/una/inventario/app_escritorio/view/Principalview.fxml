@@ -54,7 +54,7 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <JFXRadioButton fx:id="cbProveedor" layoutX="16.0" layoutY="294.0" text="Proveedor">
+      <JFXRadioButton fx:id="cbProveedor" layoutX="16.0" layoutY="294.0" onAction="#OnActioncbProveedor" text="Proveedor">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -62,7 +62,7 @@
             <ToggleGroup fx:id="AgruparI" />
          </toggleGroup>
       </JFXRadioButton>
-      <JFXRadioButton fx:id="cbMarca" layoutX="112.0" layoutY="294.0" text="Marca" toggleGroup="$AgruparI">
+      <JFXRadioButton fx:id="cbMarca" layoutX="112.0" layoutY="294.0" onAction="#OnActioncbMarca" text="Marca" toggleGroup="$AgruparI">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
@@ -85,7 +85,7 @@
         </columns>
       </TableView>
       <ComboBox fx:id="cbxPrueba" disable="true" layoutX="26.0" layoutY="346.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Opciones" />
-      <JFXRadioButton fx:id="cbDescendente" layoutX="62.0" layoutY="457.0" text="Descendente" translateX="4.0">
+      <JFXRadioButton fx:id="cbDescendente" layoutX="62.0" layoutY="457.0" onAction="#OnActioncbDescendente" text="Descendente" translateX="4.0">
          <toggleGroup>
             <ToggleGroup fx:id="Ordenar" />
          </toggleGroup>
@@ -93,7 +93,7 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </JFXRadioButton>
-      <JFXRadioButton fx:id="cbAscendente" layoutX="65.0" layoutY="434.0" text="Ascendente" toggleGroup="$Ordenar" translateX="1.0">
+      <JFXRadioButton fx:id="cbAscendente" layoutX="65.0" layoutY="434.0" onAction="#OnActioncbAscendente" text="Ascendente" toggleGroup="$Ordenar" translateX="1.0">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
