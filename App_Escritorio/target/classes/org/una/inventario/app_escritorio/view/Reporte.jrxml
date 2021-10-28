@@ -98,42 +98,42 @@
 	</columnHeader>
 	<detail>
 		<band height="122">
-			<textField textAdjust="StretchHeight">
+			<textField>
 				<reportElement x="0" y="0" width="80" height="30" uuid="0e192211-9285-43d1-93b4-c9f6a017ded1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1bce0e8-9b27-4523-8b92-bede5c9ee089"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Id}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField>
 				<reportElement x="80" y="0" width="100" height="30" uuid="a48194c0-3fc5-47ee-8925-3830897e32d5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d32742b8-6a2f-40ab-9299-d5474e8d2f13"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField>
 				<reportElement x="180" y="0" width="100" height="30" uuid="306153dc-b0df-4e18-a23e-c2350fc2d1ea">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea743d8a-acee-4a56-a3e1-bfce59f458b8"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Fecha de compra}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField>
 				<reportElement x="280" y="0" width="60" height="30" uuid="167148ae-7ab0-4669-9b13-0a99ca0002a4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="62d08704-8227-4ad3-b176-41adc811f56e"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField>
 				<reportElement x="340" y="0" width="100" height="30" uuid="f2f71b3a-ad27-4f73-8952-ac0f656de9c3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4e76cd3-5b5d-4bfc-ba65-93ed161cf64d"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{ID del depende}]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight">
+			<textField>
 				<reportElement x="440" y="0" width="134" height="30" uuid="cb81b0f3-5b26-4df2-a292-3ac0e860c5d6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5635d099-2896-4628-9aa9-7dc5e207d055"/>
 				</reportElement>

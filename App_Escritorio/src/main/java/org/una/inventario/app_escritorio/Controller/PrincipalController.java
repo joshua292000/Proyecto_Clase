@@ -1,6 +1,6 @@
 package org.una.inventario.app_escritorio.Controller;
 
-
+import net.sf.jasperreports.engine.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.collections.FXCollections;
@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.una.inventario.app_escritorio.DTO.ActivoDTO;
 import org.una.inventario.app_escritorio.DTO.AuthenticationResponse;
 import org.una.inventario.app_escritorio.DTO.MarcaDTO;
@@ -127,6 +129,11 @@ public class PrincipalController extends Controller implements Initializable {
     }
 
     public void OnActionbtnVisualizarReporte(ActionEvent actionEvent) {
+        try{
+            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/org/una/inventario/app_escritorio/resources/Reporte.jrxml"));
+        }catch(Exception ex){
+            ex.getMessage();
+        }
     }
 
     public void OnActionbtnImprimirReporte(ActionEvent actionEvent) {
