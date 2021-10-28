@@ -87,4 +87,16 @@ public class PrincipalController extends Controller implements Initializable {
     public void initialize() {
 
     }
+
+    public void OnActioncbProveedor(ActionEvent actionEvent) {
+    }
+
+    public void OnActioncbMarca(ActionEvent actionEvent) {
+    }
+
+    public void OnActioncbDescendente(ActionEvent actionEvent) {
+    }
+
+    public void OnActioncbAscendente(ActionEvent actionEvent) {
+    }
 }
