@@ -20,6 +20,17 @@ public class ProveedoresServiceImplementation implements ProveedoresService{
     @Autowired
     ProveedoresRespository proveedoresRespository;
 
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ProveedoresDTO> findById(Long id) {
+        Optional<Proveedores> proveedores = proveedoresRespository.findById(id);
+        if (proveedores.isEmpty()) throw new NotFoundInformationException();
+        ProveedoresDTO proveedoresDTO = MapperUtils.DtoFromEntity(proveedores.get(), ProveedoresDTO.class);
+        return Optional.ofNullable(proveedoresDTO);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<List<ProveedoresDTO>> findAll() {
@@ -37,14 +48,6 @@ public class ProveedoresServiceImplementation implements ProveedoresService{
         return Optional.ofNullable(proveedoresDTO);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ProveedoresDTO> findById(Long id) {
-        Optional<Proveedores> proveedores = proveedoresRespository.findById(id);
-        if (proveedores.isEmpty()) throw new NotFoundInformationException();
-        ProveedoresDTO proveedoresDTO = MapperUtils.DtoFromEntity(proveedores.get(), ProveedoresDTO.class);
-        return Optional.ofNullable(proveedoresDTO);
-    }
 
     private ProveedoresDTO getSavedProveedoresDTO(ProveedoresDTO proveedoresDTO) {
         Proveedores proveedores = MapperUtils.EntityFromDto(proveedoresDTO, Proveedores.class);

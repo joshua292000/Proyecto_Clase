@@ -39,11 +39,7 @@ public class ReporteService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // print response headers
-       // HttpHeaders headers = response.headers();
-        //adminheaders.map().forEach((k, v) -> System.out.println(k + ":" + v));
 
-        // print status code
         System.out.println("status "+response.statusCode());
 
         // print response body

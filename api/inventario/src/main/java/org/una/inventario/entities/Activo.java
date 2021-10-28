@@ -24,7 +24,7 @@ public class Activo implements Serializable {
     @JoinColumn(name="categorias_id")
     private Categorias categorias;
 
-   @ManyToOne
+    @ManyToOne
     @JoinColumn(name="proveedor_id")
     private Proveedores proveedores;
 

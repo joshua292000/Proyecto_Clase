@@ -21,6 +21,15 @@ public class ProveedoresController {
     @Autowired
     private ProveedoresService proveedoresService;
 
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Obtiene un proveedor a partir de su id", response = ProveedoresDTO.class, tags = "Proveedores")
+    public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
+        Optional<ProveedoresDTO> proveedorFound = proveedoresService.findById(id);
+        return new ResponseEntity<>(proveedorFound, HttpStatus.OK);
+
+    }
+
+
     @GetMapping()
     @ApiOperation(value = "Obtiene una lista de todos los proveedores", response = ProveedoresDTO.class, responseContainer = "List", tags = "Proveedores")
     public @ResponseBody
@@ -29,13 +38,7 @@ public class ProveedoresController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    @ApiOperation(value = "Obtiene un proveedor a partir de su id", response = ProveedoresDTO.class, tags = "Proveedores")
-    public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<ProveedoresDTO> proveedorFound = proveedoresService.findById(id);
-        return new ResponseEntity<>(proveedorFound, HttpStatus.OK);
 
-    }
 
     @GetMapping("/findByNombre/{nombre}")
     @ApiOperation(value = "Obtiene un proveedor por medio de nombre", response = ProveedoresDTO.class, tags = "Proveedores")

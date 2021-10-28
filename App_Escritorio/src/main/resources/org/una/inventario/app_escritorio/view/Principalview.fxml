@@ -84,7 +84,7 @@
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
-      <ComboBox fx:id="cbxPrueba" layoutX="26.0" layoutY="346.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Opciones" />
+      <ComboBox fx:id="cbxPrueba" disable="true" layoutX="26.0" layoutY="346.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Opciones" />
       <JFXRadioButton fx:id="cbDescendente" layoutX="62.0" layoutY="457.0" text="Descendente" translateX="4.0">
          <toggleGroup>
             <ToggleGroup fx:id="Ordenar" />

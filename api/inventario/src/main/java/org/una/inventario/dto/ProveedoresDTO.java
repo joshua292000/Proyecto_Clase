@@ -17,5 +17,5 @@ public class ProveedoresDTO {
     private String estado;
     private Date fechaCreacion;
     private Date fechaModificacion;
-    private ActivoDTO activos;
+
 }
