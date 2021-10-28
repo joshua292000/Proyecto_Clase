@@ -11,6 +11,7 @@ module org.una.inventario.app_escritorio {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires jasperreports;
+    requires java.desktop;
 
     opens org.una.inventario.app_escritorio to javafx.fxml;
     opens org.una.inventario.app_escritorio.Controller to javafx.fxml;

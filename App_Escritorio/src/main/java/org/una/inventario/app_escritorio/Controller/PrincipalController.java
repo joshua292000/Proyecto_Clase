@@ -1,5 +1,6 @@
 package org.una.inventario.app_escritorio.Controller;
 
+import javafx.stage.Window;
 import net.sf.jasperreports.engine.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
@@ -13,15 +14,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
-import org.una.inventario.app_escritorio.DTO.ActivoDTO;
-import org.una.inventario.app_escritorio.DTO.AuthenticationResponse;
-import org.una.inventario.app_escritorio.DTO.MarcaDTO;
-import org.una.inventario.app_escritorio.DTO.ProveedoresDTO;
+import net.sf.jasperreports.view.JasperViewer;
+import org.una.inventario.app_escritorio.DTO.*;
 import org.una.inventario.app_escritorio.Service.AutenticacionService;
 import org.una.inventario.app_escritorio.Service.ConsultasService;
 import org.una.inventario.app_escritorio.Service.ReporteService;
+import org.una.inventario.app_escritorio.Util.AppContext;
 import org.una.inventario.app_escritorio.Util.FlowController;
-
+import javax.swing.WindowConstants;
 import java.io.IOException;
 import java.net.URL;
 import java.net.http.HttpClient;
@@ -53,7 +53,7 @@ public class PrincipalController extends Controller implements Initializable {
     @FXML
     private DatePicker dtpFFinal;
     @FXML
-    private TableView tbvContenido;
+    private TableView<ReporteDTO> tbvContenido;
     @FXML
     private TableColumn tcIdx;
     @FXML
@@ -66,7 +66,7 @@ public class PrincipalController extends Controller implements Initializable {
     private TableColumn tcMarca;
 
     private  ObservableList<String> options = FXCollections.observableArrayList();
-    private  ObservableList<String> options2 = FXCollections.observableArrayList();
+    private  ObservableList<ReporteDTO> options2 = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox cbxPrueba = new ComboBox(options);
@@ -92,27 +92,30 @@ public class PrincipalController extends Controller implements Initializable {
             List<ActivoDTO> activo = ConsultasService.ObtenerActivo1(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
             if(activo!=null){
                 for(ActivoDTO activos:activo){
-                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getMarca().getNombre()));
                 }
+                AppContext.getInstance().delete("reporte");
+                AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
             }
         }else if(tipo==2 && AntDec==1){
             List<ActivoDTO> activo = ConsultasService.ObtenerActivo2(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
             if(activo!=null){
-                System.out.println("Entre");
                 for(ActivoDTO activos:activo){
-                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getMarca().getNombre()));
                 }
+                AppContext.getInstance().delete("reporte");
+                AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
-                System.out.println(options2);
             }
         }else if(tipo==1 && AntDec==1){
             List<ActivoDTO> activo = ConsultasService.ObtenerActivo3(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
             if(activo!=null){
-
                 for(ActivoDTO activos:activo){
-                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getProveedor().getNombre()));
                 }
+                AppContext.getInstance().delete("reporte");
+                AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
 
             }
@@ -120,8 +123,10 @@ public class PrincipalController extends Controller implements Initializable {
             List<ActivoDTO> activo = ConsultasService.ObtenerActivo4(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
             if(activo!=null){
                 for(ActivoDTO activos:activo){
-                    options2.add(activos.getId()+activos.getNombre()+activos.getMarca()+activos.getFechaCreacion()+activos.getEstado());
+                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getProveedor().getNombre()));
                 }
+                AppContext.getInstance().delete("reporte");
+                AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
             }
         }
@@ -130,8 +135,14 @@ public class PrincipalController extends Controller implements Initializable {
 
     public void OnActionbtnVisualizarReporte(ActionEvent actionEvent) {
         try{
-            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/org/una/inventario/app_escritorio/resources/Reporte.jrxml"));
+            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/org/una/inventario/app_escritorio/view/Reporte.jasper"));
+            JasperPrint jprint = JasperFillManager.fillReport(report, null, ReporteService.getDataSource());
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+            System.out.println("Hola");
         }catch(Exception ex){
+            System.out.println("adios");
             ex.getMessage();
         }
     }
@@ -145,7 +156,7 @@ public class PrincipalController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       //ad LlenarTabla();
+       //LlenarTabla();
     }
 
     @Override
@@ -196,10 +207,10 @@ public class PrincipalController extends Controller implements Initializable {
     public void LlenarTabla(){
         this.tcIdx.setCellValueFactory(new PropertyValueFactory("id"));
         this.tcNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
-        this.tcMarca.setCellValueFactory(new PropertyValueFactory("marca"));
         this.tcFecha.setCellValueFactory(new PropertyValueFactory("fecha"));
         this.tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
-        options2.add(""+""+""+""+"");
+        this.tcMarca.setCellValueFactory(new PropertyValueFactory("marca"));
+        options2.add(new ReporteDTO("","","","",""));
         this.tbvContenido.setItems(options2);
     }
 }
