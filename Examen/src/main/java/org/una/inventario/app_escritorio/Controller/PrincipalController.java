@@ -32,131 +32,28 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class PrincipalController extends Controller implements Initializable {
-    @FXML
-    public JFXRadioButton cbDescendente;
-    @FXML
-    public JFXRadioButton cbAscendente;
-    @FXML
-    private AnchorPane APFondo;
-    @FXML
-    public JFXRadioButton cbMarca;
-    @FXML
-    public JFXRadioButton cbProveedor;
-    @FXML
-    private JFXButton btnGenerarReporte;
-    @FXML
-    private JFXButton btnImprimirReporte;
-    @FXML
-    private JFXButton btnVisualizarReporte;
-    @FXML
-    private DatePicker dtpFInicio;
-    @FXML
-    private DatePicker dtpFFinal;
-    @FXML
-    private TableView<ReporteDTO> tbvContenido;
-    @FXML
-    private TableColumn tcIdx;
-    @FXML
-    private TableColumn tcNombre;
-    @FXML
-    private TableColumn tcFecha;
-    @FXML
+
+    public JFXButton btnGuardar;
+    public JFXButton btnVisualizarInformacion;
+    public JFXButton btnAgregarA;
+    public TableView tbvContenido;
+    public TableColumn tcMarca;
+    public TableColumn tcProveedor;
+    public TableColumn tcNumero;
+    public TableColumn tcNota;
+    public TableColumn tcTelefono;
+    public TableColumn tcCorreo;
+    public TableColumn tcFechaProveedor;
+    public TableColumn tcNombre;
     public TableColumn tcEstado;
-    @FXML
-    private TableColumn tcMarca;
+    public TableColumn tcFechadecreacion;
 
     private  ObservableList<String> options = FXCollections.observableArrayList();
     private  ObservableList<ReporteDTO> options2 = FXCollections.observableArrayList();
 
-    @FXML
-    private ComboBox cbxPrueba = new ComboBox(options);
-
-    private int tipo=0;
-    private int AntDec =0;
-
-    public void OnActionbtnGenerarReporte(ActionEvent actionEvent) throws IOException, InterruptedException {
-        String id;
-        String ids="";
-        int numero=0;
-        id = cbxPrueba.getValue().toString();
-        char [] split = id.toCharArray();
-        for(int x=0;x<split.length;x++){
-            if(Character.isDigit(split[x])){
-                ids+=split[x];
-            }
-        }
-        numero=Integer.parseInt(ids);
-        System.out.println("res "+numero);
-
-        if(tipo==2 && AntDec==2){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo1(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
-            if(activo!=null){
-                for(ActivoDTO activos:activo){
-                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getMarca().getNombre()));
-                }
-                AppContext.getInstance().delete("reporte");
-                AppContext.getInstance().set("reporte", options2);
-                this.tbvContenido.setItems(options2);
-            }
-        }else if(tipo==2 && AntDec==1){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo2(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
-            if(activo!=null){
-                for(ActivoDTO activos:activo){
-                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getMarca().getNombre()));
-                }
-                AppContext.getInstance().delete("reporte");
-                AppContext.getInstance().set("reporte", options2);
-                this.tbvContenido.setItems(options2);
-            }
-        }else if(tipo==1 && AntDec==1){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo3(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
-            if(activo!=null){
-                for(ActivoDTO activos:activo){
-                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getProveedor().getNombre()));
-                }
-                AppContext.getInstance().delete("reporte");
-                AppContext.getInstance().set("reporte", options2);
-                this.tbvContenido.setItems(options2);
-
-            }
-        }else if(tipo==1 && AntDec==2){
-            List<ActivoDTO> activo = ConsultasService.ObtenerActivo4(numero,dtpFInicio.getValue(),dtpFFinal.getValue());
-            if(activo!=null){
-                for(ActivoDTO activos:activo){
-                    options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getProveedor().getNombre()));
-                }
-                AppContext.getInstance().delete("reporte");
-                AppContext.getInstance().set("reporte", options2);
-                this.tbvContenido.setItems(options2);
-            }
-        }
-
-    }
-
-    public void OnActionbtnVisualizarReporte(ActionEvent actionEvent) {
-        try{
-            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/org/una/inventario/app_escritorio/view/Reporte.jasper"));
-            JasperPrint jprint = JasperFillManager.fillReport(report, null, ReporteService.getDataSource());
-            JasperViewer view = new JasperViewer(jprint, false);
-            view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            view.setVisible(true);
-            System.out.println("Hola");
-        }catch(Exception ex){
-            System.out.println("adios");
-            ex.getMessage();
-        }
-    }
-
-    public void OnActionbtnImprimirReporte(ActionEvent actionEvent) {
-    }
-
-    public void OnActionDespliegue(ActionEvent actionEvent) {
-
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       //LlenarTabla();
+
     }
 
     @Override
@@ -164,53 +61,13 @@ public class PrincipalController extends Controller implements Initializable {
 
     }
 
-    public void OnActioncbProveedor(ActionEvent actionEvent) throws IOException, InterruptedException {
-        tipo = 1;
-        OpcionPM(tipo);
+
+    public void OnActionbtnAgregarA(ActionEvent actionEvent) {
     }
 
-    public void OnActioncbMarca(ActionEvent actionEvent) throws IOException, InterruptedException {
-        tipo = 2;
-        OpcionPM(tipo);
+    public void OnActionbtnGuardar(ActionEvent actionEvent) {
     }
 
-    public void OnActioncbDescendente(ActionEvent actionEvent) {
-        AntDec =1;
-    }
-
-    public void OnActioncbAscendente(ActionEvent actionEvent) {
-        AntDec =2;
-    }
-
-    public void OpcionPM(int tipo) throws IOException, InterruptedException {
-        if(tipo == 1){
-            List<ProveedoresDTO> proveedor = ConsultasService.ProveeCBX();
-            cbxPrueba.getItems().removeAll();
-            for(ProveedoresDTO proveedores:proveedor){
-                options.add(proveedores.getId() +"-"+ proveedores.getNombre());
-            }
-            cbxPrueba.setDisable(false);
-            cbxPrueba.setItems(options);
-
-        }else if(tipo == 2){
-            List<MarcaDTO> marca = ConsultasService.MarcaCBX();
-            cbxPrueba.getItems().removeAll();
-            for(MarcaDTO marcas:marca){
-                options.add(marcas.getId() +"-"+ marcas.getNombre());
-            }
-            cbxPrueba.setDisable(false);
-            cbxPrueba.setItems(options);
-
-        }
-    }
-
-    public void LlenarTabla(){
-        this.tcIdx.setCellValueFactory(new PropertyValueFactory("id"));
-        this.tcNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
-        this.tcFecha.setCellValueFactory(new PropertyValueFactory("fecha"));
-        this.tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
-        this.tcMarca.setCellValueFactory(new PropertyValueFactory("marca"));
-        options2.add(new ReporteDTO("","","","",""));
-        this.tbvContenido.setItems(options2);
+    public void OnActionbtnVisualizarInformacion(ActionEvent actionEvent) {
     }
 }
