@@ -68,8 +68,16 @@ public class DataLoader implements ApplicationRunner {
                     .nombreCompleto("Usuario Administrador")
                     .passwordEncriptado(password)
                     .departamento(informaticaDepartamento.orElseThrow())
-                    .rol(administradorRol.orElseThrow()).build();
+                    .rol(auditorRol.orElseThrow()).build();
             usuarioService.create(administradorUsuario);
+
+            UsuarioDTO auditorUsuario = UsuarioDTO.builder()
+                    .cedula("123")
+                    .nombreCompleto("Usuario auditor")
+                    .passwordEncriptado("456")
+                    .departamento(informaticaDepartamento.orElseThrow())
+                    .rol(auditorRol.orElseThrow()).build();
+            usuarioService.create(auditorUsuario);
 
             System.out.println("Se agrega el usuario inicial a la aplicación");
         }else {

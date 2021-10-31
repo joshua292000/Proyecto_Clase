@@ -18,5 +18,5 @@ module org.una.inventario.app_escritorio {
     exports org.una.inventario.app_escritorio;
     exports org.una.inventario.app_escritorio.Controller;
     exports org.una.inventario.app_escritorio.DTO to com.fasterxml.jackson.databind;
-    //opens org.una.inventario.app_escritorio.Util to javafx.base;
+    opens org.una.inventario.app_escritorio.DTO to javafx.base;
 }

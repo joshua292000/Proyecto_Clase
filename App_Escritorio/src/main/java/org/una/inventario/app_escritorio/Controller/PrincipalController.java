@@ -26,10 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.time.Duration;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PrincipalController extends Controller implements Initializable {
     @FXML
@@ -94,6 +91,7 @@ public class PrincipalController extends Controller implements Initializable {
                 for(ActivoDTO activos:activo){
                     options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getMarca().getNombre()));
                 }
+                Collections.sort(options2);
                 AppContext.getInstance().delete("reporte");
                 AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
@@ -104,6 +102,7 @@ public class PrincipalController extends Controller implements Initializable {
                 for(ActivoDTO activos:activo){
                     options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getMarca().getNombre()));
                 }
+                Collections.sort(options2);
                 AppContext.getInstance().delete("reporte");
                 AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
@@ -114,6 +113,7 @@ public class PrincipalController extends Controller implements Initializable {
                 for(ActivoDTO activos:activo){
                     options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getProveedor().getNombre()));
                 }
+                Collections.sort(options2);
                 AppContext.getInstance().delete("reporte");
                 AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
@@ -125,6 +125,7 @@ public class PrincipalController extends Controller implements Initializable {
                 for(ActivoDTO activos:activo){
                     options2.add( new ReporteDTO(activos.getId().toString(), activos.getNombre(),activos.getFechaCreacion().toString(),activos.getEstado(),activos.getProveedor().getNombre()));
                 }
+                Collections.sort(options2);
                 AppContext.getInstance().delete("reporte");
                 AppContext.getInstance().set("reporte", options2);
                 this.tbvContenido.setItems(options2);
@@ -135,13 +136,15 @@ public class PrincipalController extends Controller implements Initializable {
 
     public void OnActionbtnVisualizarReporte(ActionEvent actionEvent) {
         try{
-            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/org/una/inventario/app_escritorio/view/Reporte.jasper"));
+            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/org/una/inventario/app_escritorio/reporteJasper/Reporte.jasper"));
             JasperPrint jprint = JasperFillManager.fillReport(report, null, ReporteService.getDataSource());
+
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             view.setVisible(true);
-            System.out.println("Hola");
-        }catch(Exception ex){
+            System.out.println("hola");
+
+        }catch(JRException ex){
             System.out.println("adios");
             ex.getMessage();
         }
@@ -156,12 +159,12 @@ public class PrincipalController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       //LlenarTabla();
+
     }
 
     @Override
     public void initialize() {
-
+    LlenarTabla();
     }
 
     public void OnActioncbProveedor(ActionEvent actionEvent) throws IOException, InterruptedException {
