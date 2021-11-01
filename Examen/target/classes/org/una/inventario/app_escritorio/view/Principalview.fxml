@@ -10,96 +10,58 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="APFondo" prefHeight="571.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.inventario.app_escritorio.Controller.PrincipalController">
+<AnchorPane fx:id="APFondo" prefHeight="664.0" prefWidth="1164.0" style="-fx-background-color: #a5b5ac;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.inventario.app_escritorio.Controller.PrincipalController">
    <children>
-      <Label fx:id="lblSistemaDeReportes" layoutX="272.0" prefHeight="71.0" prefWidth="229.0" text="Sistema de reportes">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8f5ee" height="118.0" layoutX="317.0" layoutY="530.0" stroke="BLACK" strokeType="INSIDE" width="651.0" />
+      <Label fx:id="lblSistemaDeReportes" layoutX="415.0" prefHeight="71.0" prefWidth="367.0" text="Sistema de inclusión  de activos">
          <font>
             <Font name="Times New Roman" size="28.0" />
          </font>
       </Label>
-      <Label fx:id="lblFechadelreporte" layoutX="22.0" layoutY="93.0" text="Fechas del reporte:">
+      <Label fx:id="lblAgregar" layoutX="380.0" layoutY="553.0" text="Agregar archivos:">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dtpFFinal" layoutX="14.0" layoutY="214.0" />
-      <Label fx:id="lblDesde" layoutX="21.0" layoutY="127.0" text="Desde:">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="dtpFInicio" layoutX="14.0" layoutY="150.0" />
-      <JFXButton fx:id="btnGenerarReporte" buttonType="RAISED" layoutX="45.0" layoutY="516.0" onAction="#OnActionbtnGenerarReporte" prefHeight="28.0" prefWidth="133.0" ripplerFill="#38ab95" text="Generar reporte">
+      <JFXButton fx:id="btnGuardar" buttonType="RAISED" layoutX="564.0" layoutY="590.0" onAction="#OnActionbtnGuardar" prefHeight="28.0" prefWidth="133.0" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Guardar">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </JFXButton>
-      <Label fx:id="lblHasta" layoutX="23.0" layoutY="191.0" text="Hasta:">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="btnVisualizarReporte" buttonType="RAISED" layoutX="320.0" layoutY="516.0" onAction="#OnActionbtnVisualizarReporte" ripplerFill="#38ab95" text="Visualizar Reporte">
+      <JFXButton fx:id="btnVisualizarInformacion" buttonType="RAISED" layoutX="775.0" layoutY="589.0" onAction="#OnActionbtnVisualizarInformacion" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Visualizar información">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnImprimirReporte" buttonType="RAISED" layoutX="597.0" layoutY="516.0" onAction="#OnActionbtnImprimirReporte" ripplerFill="#38ab95" text="Imprimir Reporte">
-         <font>
-            <Font name="Times New Roman" size="15.0" />
-         </font>
-      </JFXButton>
-      <Label fx:id="lblAgrupar" layoutX="22.0" layoutY="270.0" text="Agrupar la información por:">
+      <Label fx:id="lblGuardar" layoutX="558.0" layoutY="553.0" text="Guardar en base de datos:">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <JFXRadioButton fx:id="cbProveedor" layoutX="16.0" layoutY="294.0" onAction="#OnActioncbProveedor" text="Proveedor">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-         <toggleGroup>
-            <ToggleGroup fx:id="AgruparI" />
-         </toggleGroup>
-      </JFXRadioButton>
-      <JFXRadioButton fx:id="cbMarca" layoutX="112.0" layoutY="294.0" onAction="#OnActioncbMarca" text="Marca" toggleGroup="$AgruparI">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-      </JFXRadioButton>
-      <Label fx:id="lblOrdenar" layoutX="27.0" layoutY="408.0" text="Ordenar la información por:">
+      <Label fx:id="lblMostrarInformacion" layoutX="764.0" layoutY="553.0" text="Mostrar información de activos:">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="394.0" layoutX="243.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" width="490.0" />
-      <Label layoutX="347.0" layoutY="187.0" prefHeight="105.0" prefWidth="283.0" text="Aquí se va a ver&#10; el reporte" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="347.0" layoutY="187.0" prefHeight="105.0" prefWidth="283.0" text="Aquí se va a ver&#10; la informacion de los activos" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <TableView fx:id="tbvContenido" layoutX="243.0" layoutY="79.0" prefHeight="394.0" prefWidth="496.0">
+      <TableView fx:id="tbvContenido" layoutX="19.0" layoutY="68.0" prefHeight="449.0" prefWidth="1132.0">
         <columns>
-          <TableColumn fx:id="tcIdx" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="tcNombre" prefWidth="90.0" text="Nombre" />
-            <TableColumn fx:id="tcFecha" prefWidth="170.0" text="Fecha de creacion" />
-            <TableColumn fx:id="tcEstado" prefWidth="77.0" text="Estado" />
-            <TableColumn fx:id="tcMarca" prefWidth="79.0" text="Marca" />
+          <TableColumn fx:id="tcMarca" prefWidth="75.0" text="Marca" />
+          <TableColumn fx:id="tcProveedor" prefWidth="90.0" text="Proveedor" />
+            <TableColumn fx:id="tcNumero" prefWidth="86.0" text="Numero" />
+            <TableColumn fx:id="tcNota" prefWidth="111.0" text="Nota" />
+            <TableColumn fx:id="tcTelefono" prefWidth="87.0" text="Telefono" />
+            <TableColumn fx:id="tcCorreo" prefWidth="126.0" text="Correo Electronico" />
+            <TableColumn fx:id="tcFechaProveedor" prefWidth="196.0" text="Fecha de creacion del proveedor" />
+            <TableColumn fx:id="tcNombre" prefWidth="101.0" text="Nombre" />
+            <TableColumn fx:id="tcEstado" prefWidth="93.0" text="Estado" />
+            <TableColumn fx:id="tcFechadecreacion" prefWidth="165.0" text="Fecha de creacion " />
         </columns>
       </TableView>
-      <ComboBox fx:id="cbxPrueba" layoutX="26.0" layoutY="346.0" onAction="#OnActionDespliegue" prefWidth="150.0" promptText="Opciones" />
-      <JFXRadioButton fx:id="cbDescendente" layoutX="62.0" layoutY="457.0" onAction="#OnActioncbDescendente" text="Descendente" translateX="4.0">
-         <toggleGroup>
-            <ToggleGroup fx:id="Ordenar" />
-         </toggleGroup>
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-      </JFXRadioButton>
-      <JFXRadioButton fx:id="cbAscendente" layoutX="65.0" layoutY="434.0" onAction="#OnActioncbAscendente" text="Ascendente" toggleGroup="$Ordenar" translateX="1.0">
-         <font>
-            <Font name="Times New Roman" size="14.0" />
-         </font>
-      </JFXRadioButton>
+      <JFXButton fx:id="btnAgregarA" buttonType="RAISED" layoutX="380.0" layoutY="592.0" onAction="#OnActionbtnAgregarA" prefHeight="25.0" prefWidth="86.0" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Agregar " />
    </children>
 </AnchorPane>
