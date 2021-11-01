@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import com.jfoenix.validation.*?>
 <?import javafx.scene.text.*?>
@@ -43,29 +44,28 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="347.0" layoutY="187.0" prefHeight="105.0" prefWidth="283.0" text="Aquí se va a ver&#10; la informacion de los activos" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Label>
-      <JFXScrollPane layoutX="221.0" layoutY="68.0" prefHeight="411.0" prefWidth="1119.0">
-         <children>
-            <TableView fx:id="tbvContenido" prefHeight="449.0" prefWidth="774.0">
-              <columns>
-                <TableColumn fx:id="tcMarca" prefWidth="75.0" text="Marca" />
-                <TableColumn fx:id="tcProveedor" prefWidth="90.0" text="Proveedor" />
-                  <TableColumn fx:id="tcNumero" prefWidth="86.0" text="Numero" />
-                  <TableColumn fx:id="tcNota" prefWidth="111.0" text="Nota" />
-                  <TableColumn fx:id="tcTelefono" prefWidth="87.0" text="Telefono" />
-                  <TableColumn fx:id="tcCorreo" prefWidth="126.0" text="Correo Electronico" />
-                  <TableColumn fx:id="tcFechaProveedor" prefWidth="196.0" text="Fecha de creacion del proveedor" />
-                  <TableColumn fx:id="tcNombre" prefWidth="101.0" text="Nombre" />
-                  <TableColumn fx:id="tcEstado" prefWidth="93.0" text="Estado" />
-                  <TableColumn fx:id="tcFechadecreacion" prefWidth="165.0" text="Fecha de creacion " />
-              </columns>
-            </TableView>
-         </children>
-      </JFXScrollPane>
       <JFXButton fx:id="btnAgregarA" buttonType="RAISED" layoutX="56.0" layoutY="134.0" onAction="#OnActionbtnAgregarA" prefHeight="25.0" prefWidth="86.0" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Agregar " />
+      <ScrollPane fx:id="SPane" layoutX="247.0" layoutY="55.0" prefHeight="420.0" prefWidth="1070.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="686.0" prefWidth="1205.0">
+               <children>
+                  <TableView fx:id="tbvContenido" prefHeight="686.0" prefWidth="1191.0">
+                    <columns>
+                      <TableColumn fx:id="tcMarca" prefWidth="75.0" text="Marca" />
+                      <TableColumn fx:id="tcProveedor" prefWidth="90.0" text="Proveedor" />
+                        <TableColumn fx:id="tcNumero" prefWidth="86.0" text="Numero" />
+                        <TableColumn fx:id="tcNota" prefWidth="111.0" text="Nota" />
+                        <TableColumn fx:id="tcTelefono" prefWidth="87.0" text="Telefono" />
+                        <TableColumn fx:id="tcCorreo" prefWidth="158.0" text="Correo Electronico" />
+                        <TableColumn fx:id="tcFechaProveedor" prefWidth="237.0" text="Fecha de creacion del proveedor" />
+                        <TableColumn fx:id="tcNombre" prefWidth="87.0" text="Nombre" />
+                        <TableColumn fx:id="tcEstado" prefWidth="79.0" text="Estado" />
+                        <TableColumn fx:id="tcFechadecreacion" prefWidth="180.0" text="Fecha de creacion " />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

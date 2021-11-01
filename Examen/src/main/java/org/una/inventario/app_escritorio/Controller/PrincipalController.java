@@ -47,6 +47,7 @@ public class PrincipalController extends Controller implements Initializable {
     public TableColumn tcNombre;
     public TableColumn tcEstado;
     public TableColumn tcFechadecreacion;
+    public ScrollPane SPane;
 
     private  ObservableList<String> options = FXCollections.observableArrayList();
     private  ObservableList<ReporteDTO> options2 = FXCollections.observableArrayList();
