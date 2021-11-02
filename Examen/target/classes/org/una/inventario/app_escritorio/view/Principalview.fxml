@@ -56,8 +56,9 @@
                         <TableColumn fx:id="tcNumero" prefWidth="86.0" text="Numero" />
                         <TableColumn fx:id="tcNota" prefWidth="111.0" text="Nota" />
                         <TableColumn fx:id="tcTelefono" prefWidth="87.0" text="Telefono" />
-                        <TableColumn fx:id="tcCorreo" prefWidth="158.0" text="Correo Electronico" />
-                        <TableColumn fx:id="tcFechaProveedor" prefWidth="237.0" text="Fecha de creacion del proveedor" />
+                        <TableColumn fx:id="tcCorreoElectronico" prefWidth="158.0" text="Correo Electronico" />
+                        <TableColumn fx:id="tcFechadeCreaciondelProveedor" prefWidth="237.0" text="Fecha de creacion del proveedor" />
+                        <TableColumn fx:id="tcContinente" prefWidth="87.0" text="Continente" />
                         <TableColumn fx:id="tcNombre" prefWidth="87.0" text="Nombre" />
                         <TableColumn fx:id="tcEstado" prefWidth="79.0" text="Estado" />
                         <TableColumn fx:id="tcFechadecreacion" prefWidth="180.0" text="Fecha de creacion " />
