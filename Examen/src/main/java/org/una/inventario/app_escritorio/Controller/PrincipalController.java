@@ -1,39 +1,21 @@
 package org.una.inventario.app_escritorio.Controller;
 
+import javafx.scene.control.ScrollPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
-import net.sf.jasperreports.engine.*;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import org.una.inventario.app_escritorio.DTO.*;
-import org.una.inventario.app_escritorio.Service.AutenticacionService;
-import org.una.inventario.app_escritorio.Service.ConsultasService;
-import org.una.inventario.app_escritorio.Service.ReporteService;
 import org.una.inventario.app_escritorio.Util.AppContext;
-import org.una.inventario.app_escritorio.Util.FlowController;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.time.Duration;
 import java.util.*;
-import java.util.List;
 
 public class PrincipalController extends Controller implements Initializable {
 
@@ -52,9 +34,8 @@ public class PrincipalController extends Controller implements Initializable {
     public TableColumn tcEstado;
     public TableColumn tcFechadecreacion;
     public ScrollPane SPane;
-
+    public String SEPARADOR = ";";
     private  ObservableList<String> options = FXCollections.observableArrayList();
-    private  ObservableList<ReporteDTO> options2 = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,7 +44,7 @@ public class PrincipalController extends Controller implements Initializable {
 
     @Override
     public void initialize() {
-
+      //  LlenarTabla();
     }
 
     public void OnActionbtnAgregarA(ActionEvent actionEvent) throws FileNotFoundException {
@@ -76,7 +57,20 @@ public class PrincipalController extends Controller implements Initializable {
        if (filecsv != null) {
            Scanner scn = new Scanner(filecsv);
            while (scn.hasNext()) {
-               System.out.println(scn.nextLine() + "\n");
+               String x = scn.nextLine();
+               String[] campos=x.split(SEPARADOR);
+               for(int i=0;i<campos.length;i++){
+                   //this.tcMarca.setText(campos[i]);
+                   //this.tcProveedor.setText(campos[i+1]);
+                   //options.add(new ActivosDTO(campos[i],campos[i+1],campos[i+2],campos[i+3],campos[i+4],campos[i+5],campos[i+6],campos[i+7],campos[i+8],campos[i+9]));
+                   options.add(campos[i]);
+                   System.out.println(campos[i]);
+               }
+               AppContext.getInstance().delete("activo");
+               AppContext.getInstance().set("activo",options);
+               this.tbvContenido.setItems(options);
+              // options2.add(scn);
+
            }
        }
     }
@@ -85,5 +79,23 @@ public class PrincipalController extends Controller implements Initializable {
     }
 
     public void OnActionbtnVisualizarInformacion(ActionEvent actionEvent) {
+       //this.tbvContenido.setItems(options);
+        System.out.println("Lista" + options);
+    }
+
+    public void LlenarTabla(){
+        this.tcMarca.setCellValueFactory(new PropertyValueFactory("marca"));
+        this.tcProveedor.setCellValueFactory(new PropertyValueFactory("proveedor"));
+        this.tcNumero.setCellValueFactory(new PropertyValueFactory("numero"));
+        this.tcNota.setCellValueFactory(new PropertyValueFactory("nota"));
+        this.tcTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
+        this.tcCorreo.setCellValueFactory(new PropertyValueFactory("correo"));
+        this.tcFechaProveedor.setCellValueFactory(new PropertyValueFactory("FechaProveedor"));
+        this.tcNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+        this.tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
+        this.tcFechadecreacion.setCellValueFactory(new PropertyValueFactory("fechadecreacion"));
+        options.add(""+""+""+""+""+""+""+""+""+"");
+        this.tbvContenido.setItems(options);
+
     }
 }
