@@ -57,14 +57,25 @@ public class ConsultasService {
     }
 
 
-    public static List<MarcaDTO> MarcaCBX() throws IOException, InterruptedException {
+    public static List<MarcaDTO> MarcaCBX(String Estado, LocalDate fecha, String Nombre) throws IOException, InterruptedException {
 
         List<MarcaDTO> marcas = null;
 
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
-
+        String json = new StringBuilder()
+                .append("{")
+                .append("\"estado\":\"" )
+                .append(Estado)
+                .append("\",")
+                .append("\"fechaCreacion\":\"" )
+                .append(fecha)
+                .append("\",")
+                .append("\"nombre\":\"" )
+                .append(Nombre)
+                .append("\"")
+                .append("}").toString();
         HttpRequest request = HttpRequest.newBuilder()
-                .GET()
+                .POST(HttpRequest.BodyPublishers.ofString(json))
                 .uri(URI.create("http://localhost:8089/marca"))
                 .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
                 .header("Content-Type", "application/json")

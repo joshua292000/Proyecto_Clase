@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.una.inventario.app_escritorio.DTO.*;
+import org.una.inventario.app_escritorio.Service.ConsultasService;
 import org.una.inventario.app_escritorio.Util.AppContext;
 
 import javax.swing.*;
@@ -26,6 +27,8 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class PrincipalController extends Controller implements Initializable {
@@ -46,8 +49,8 @@ public class PrincipalController extends Controller implements Initializable {
     public TableColumn tcEstado;
     public TableColumn tcFechadecreacion;
     public ScrollPane SPane;
-    String[] opcionemss = {"Corregir la informacion", "Descartar la información", "Cancelar"};
-    final static String DATE_FORMAT = "dd-MM-yyyy";
+    String[] opcionemss = {"Corregir la información", "Descartar la información"};
+    final static String DATE_FORMAT = "yyyy-MM-dd";
     public String SEPARADOR = ";";
     private  ObservableList<ActivosDTO>  options = FXCollections.observableArrayList();
 
@@ -93,29 +96,84 @@ public class PrincipalController extends Controller implements Initializable {
                         + " |           " + fila[9]
                         + " |             " + fila[10]
                 );
-                options.add(new ActivosDTO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9],fila[10]));
+                //options.add(new ActivosDTO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9],fila[10]));
                 boolean Validarfila2 = fila[2].matches("[+-]?\\d*(\\.\\d+)?");
                 boolean Validarfila4 = fila[4].matches("[+-]?\\d*(\\.\\d+)?");
 
                 if(Validarfila2==false){
-                    JOptionPane.showOptionDialog(null,"El campo con la siguiente información <<"+fila[2]+">> posee letras, favor solo ingresar numeros, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
+                   int seleccion = JOptionPane.showOptionDialog(null,"El campo con la siguiente información <<"+fila[2]+">> posee letras, favor solo ingresar numeros, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
                     System.out.println("Favor revisar la fila del numero, ingrese solo números");
+                    switch (seleccion){
+                        case 0:
+                            System.out.println("Hacer cambios");
+                            String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<"+fila[2]+">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                            System.out.println("Cambios "+respuesta);
+                            fila[2]=respuesta;
+                            break;
+                        case 1:
+                            fila[2]=null;
+                            System.out.println("Descartar");
+                            break;
+                    }
+
                 }
                 if(Validarfila4==false){
-                    JOptionPane.showOptionDialog(null,"El campo <<"+fila[4]+">> posee letras, favor solo ingresar numeros sin guiones ni letras, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
+                    int seleccion =JOptionPane.showOptionDialog(null,"El campo <<"+fila[4]+">> posee letras, favor solo ingresar numeros sin guiones ni letras, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
                     System.out.println("Favor revisar la fila de teléfono, ingrese solo números sin guiones de por medio");
+                    switch (seleccion){
+                        case 0:
+                            String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<"+fila[4]+">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                            fila[4]=respuesta;
+                            System.out.println("Nuevo Campo Fila[4] "+fila[4]);
+                            break;
+                        case 1:
+                            fila[4]=null;
+                            System.out.println("Descartar");
+                            break;
+                    }
                 }
-                ;
                 if(isDateValid(fila[6])==false){
-                    JOptionPane.showOptionDialog(null,"El campo <<"+fila[6]+">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
+                    int seleccion =JOptionPane.showOptionDialog(null,"El campo <<"+fila[6]+">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
+                    switch (seleccion){
+                        case 0:
+                            System.out.println("Hacer cambios");
+                            String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<"+fila[6]+">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                            System.out.println("Cambios "+respuesta);
+                            fila[6]=respuesta;
+                            break;
+                        case 1:
+                            fila[6]=null;
+                            System.out.println("Descartar");
+                            break;
+                    }
                 }
                 if(isDateValid(fila[10])==false){
-                    JOptionPane.showOptionDialog(null,"El campo <<"+fila[10]+">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
+                    int seleccion = JOptionPane.showOptionDialog(null,"El campo <<"+fila[10]+">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
+                    switch (seleccion){
+                        case 0:
+                            System.out.println("Hacer cambios");
+                            String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<"+fila[10]+">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                            System.out.println("Cambios "+respuesta);
+                            fila[10]=respuesta;
+                            break;
+                        case 1:
+                            fila[10]=null;
+                            System.out.println("Descartar");
+                            break;
+                    }
                 }
+                options.add(new ActivosDTO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9],fila[10]));
             }
         }
     }
-    public void OnActionbtnGuardar(ActionEvent actionEvent) {
+    public void OnActionbtnGuardar(ActionEvent actionEvent) throws ParseException, IOException, InterruptedException {
+       // System.out.println("Lista" + options.get(2));
+        for(int x=2;x<options.size();x++){
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(options.get(x).getFechadecreacion(), formato);
+            System.out.println("Fecha" + fecha);
+            List<MarcaDTO> marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha,options.get(x).getMarca());
+        }
     }
 
     public void OnActionbtnVisualizarInformacion(ActionEvent actionEvent) {
