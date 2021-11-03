@@ -50,7 +50,7 @@ public class PrincipalController extends Controller implements Initializable {
     public TableColumn tcFechadecreacion;
     public ScrollPane SPane;
     String[] opcionemss = {"Corregir la información", "Descartar la información"};
-    final static String DATE_FORMAT = "yyyy-MM-dd";
+    final static String DATE_FORMAT = "dd/MM/yyyy";
     public String SEPARADOR = ";";
     private  ObservableList<ActivosDTO>  options = FXCollections.observableArrayList();
 
@@ -171,8 +171,12 @@ public class PrincipalController extends Controller implements Initializable {
         for(int x=2;x<options.size();x++){
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate fecha = LocalDate.parse(options.get(x).getFechadecreacion(), formato);
+            //Date d = new SimpleDateFormat("yyyy-MM-dd").parse(fecha.toString());
+            /*SimpleDateFormat formato1 = new SimpleDateFormat("dd/MM/yyyy");
+            Date fecha1 = formato1.parse(options.get(x).getFechadecreacion());*/
+
             System.out.println("Fecha" + fecha);
-            List<MarcaDTO> marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha,options.get(x).getMarca());
+            MarcaDTO marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha,options.get(x).getMarca());
         }
     }
 

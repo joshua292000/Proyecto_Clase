@@ -14,8 +14,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -57,10 +59,12 @@ public class ConsultasService {
     }
 
 
-    public static List<MarcaDTO> MarcaCBX(String Estado, LocalDate fecha, String Nombre) throws IOException, InterruptedException {
+    public static MarcaDTO MarcaCBX(String Estado, LocalDate fecha, String Nombre) throws IOException, InterruptedException {
 
-        List<MarcaDTO> marcas = null;
-
+        MarcaDTO marcas = null;
+        System.out.println("status Fecha "+fecha);
+        //ZoneId defaultZoneId = ZoneId.systemDefault();
+        //Date date = Date.from(fecha.atStartOfDay(defaultZoneId).toInstant());
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
         String json = new StringBuilder()
                 .append("{")
@@ -76,7 +80,7 @@ public class ConsultasService {
                 .append("}").toString();
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(json))
-                .uri(URI.create("http://localhost:8089/marca"))
+                .uri(URI.create("http://localhost:8089/marca/"))
                 .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
                 .header("Content-Type", "application/json")
                 .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
@@ -89,8 +93,7 @@ public class ConsultasService {
 
         // print response body
         System.out.println("cuerpo "+response.body());
-
-        marcas = mapper.readValue(response.body(), new TypeReference<List<MarcaDTO>>() {});
+        marcas = mapper.readValue(response.body(), new TypeReference<MarcaDTO>() {});
 
         //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return marcas;
