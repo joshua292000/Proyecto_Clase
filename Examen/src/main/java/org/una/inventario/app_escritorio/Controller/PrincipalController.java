@@ -50,19 +50,19 @@ public class PrincipalController extends Controller implements Initializable {
     public TableColumn tcFechadecreacion;
     public ScrollPane SPane;
     String[] opcionemss = {"Corregir la información", "Descartar la información"};
-    final static String DATE_FORMAT = "dd/MM/yyyy";
+    final static String DATE_FORMAT = "yyyy-MM-dd";
     public String SEPARADOR = ";";
     private  ObservableList<ActivosDTO>  options = FXCollections.observableArrayList();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //LlenarTabla();
     }
 
     @Override
     public void initialize() {
-       LlenarTabla();
+      LlenarTabla();
 
     }
 
@@ -167,17 +167,14 @@ public class PrincipalController extends Controller implements Initializable {
         }
     }
     public void OnActionbtnGuardar(ActionEvent actionEvent) throws ParseException, IOException, InterruptedException {
-       // System.out.println("Lista" + options.get(2));
-        for(int x=2;x<options.size();x++){
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate fecha = LocalDate.parse(options.get(x).getFechadecreacion(), formato);
-            //Date d = new SimpleDateFormat("yyyy-MM-dd").parse(fecha.toString());
-            /*SimpleDateFormat formato1 = new SimpleDateFormat("dd/MM/yyyy");
-            Date fecha1 = formato1.parse(options.get(x).getFechadecreacion());*/
+        long idd=8;
 
-            System.out.println("Fecha" + fecha);
-            MarcaDTO marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha,options.get(x).getMarca());
-        }
+        //for(int x=2;x<options.size();x++){
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern(DATE_FORMAT);
+            LocalDate fecha = LocalDate.parse(options.get(0).getFechadecreacion(), formato);
+            MarcaDTO marca = ConsultasService.MarcaCBX(options.get(0).getEstado(),fecha,idd,options.get(0).getMarca());
+
+       // }
     }
 
     public void OnActionbtnVisualizarInformacion(ActionEvent actionEvent) {
@@ -197,7 +194,7 @@ public class PrincipalController extends Controller implements Initializable {
         this.tcNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         this.tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
         this.tcFechadecreacion.setCellValueFactory(new PropertyValueFactory("fechadecreacion"));
-        options.add(new ActivosDTO("","","","","","","","","","",""));
+        //options.add(new ActivosDTO("","","","","","","","","","",""));
         this.tbvContenido.setItems(options);
 
     }

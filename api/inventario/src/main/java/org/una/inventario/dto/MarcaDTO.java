@@ -2,6 +2,7 @@ package org.una.inventario.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data

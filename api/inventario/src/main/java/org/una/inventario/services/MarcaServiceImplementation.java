@@ -9,6 +9,7 @@ import org.una.inventario.exceptions.NotFoundInformationException;
 import org.una.inventario.repositories.IMarcaRepository;
 import org.una.inventario.utils.MapperUtils;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

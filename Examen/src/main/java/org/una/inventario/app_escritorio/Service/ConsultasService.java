@@ -2,7 +2,6 @@ package org.una.inventario.app_escritorio.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.scene.control.DatePicker;
 import org.una.inventario.app_escritorio.DTO.ActivoDTO;
 import org.una.inventario.app_escritorio.DTO.AuthenticationResponse;
 import org.una.inventario.app_escritorio.DTO.MarcaDTO;
@@ -14,10 +13,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -59,12 +56,9 @@ public class ConsultasService {
     }
 
 
-    public static MarcaDTO MarcaCBX(String Estado, LocalDate fecha, String Nombre) throws IOException, InterruptedException {
+    public static MarcaDTO MarcaCBX(String Estado, LocalDate fecha, Long id, String Nombre) throws IOException, InterruptedException {
 
         MarcaDTO marcas = null;
-        System.out.println("status Fecha "+fecha);
-        //ZoneId defaultZoneId = ZoneId.systemDefault();
-        //Date date = Date.from(fecha.atStartOfDay(defaultZoneId).toInstant());
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
         String json = new StringBuilder()
                 .append("{")
@@ -73,6 +67,9 @@ public class ConsultasService {
                 .append("\",")
                 .append("\"fechaCreacion\":\"" )
                 .append(fecha)
+                .append("\",")
+                .append("\"id\":\"" )
+                .append(id)
                 .append("\",")
                 .append("\"nombre\":\"" )
                 .append(Nombre)
@@ -88,16 +85,7 @@ public class ConsultasService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-
-        System.out.println("status "+response.statusCode());
-
-        // print response body
-        System.out.println("cuerpo "+response.body());
-        marcas = mapper.readValue(response.body(), new TypeReference<MarcaDTO>() {});
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return marcas;
-
     }
 
 

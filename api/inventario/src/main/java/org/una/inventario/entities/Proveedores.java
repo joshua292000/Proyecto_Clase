@@ -37,12 +37,12 @@ public class Proveedores implements Serializable {
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)
-    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.PUBLIC)
     private Date fechaCreacion;
 
     @Column(name = "fecha_modificacion", updatable = false)
     @Temporal(TemporalType.DATE)
-    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.PUBLIC)
     private Date fechaModificacion;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proveedores")

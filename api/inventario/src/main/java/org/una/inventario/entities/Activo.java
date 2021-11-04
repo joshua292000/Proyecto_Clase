@@ -43,12 +43,12 @@ public class Activo implements Serializable {
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)
-    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.PUBLIC)
     private Date fechaCreacion;
 
     @Column(name = "fecha_modificacion", updatable = false)
     @Temporal(TemporalType.DATE)
-    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.PUBLIC)
     private Date fechaModificacion;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activo")
@@ -67,8 +67,8 @@ public class Activo implements Serializable {
 
     @PrePersist
     public void prePersist() {
-        fechaCreacion = new Date();
-        fechaModificacion=new Date();
+        //fechaCreacion = new Date();
+        //fechaModificacion=new Date();
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,9 +27,9 @@ public class Marca implements Serializable {
     @Column(name = "estado", length = 10)
     private String estado;
 
-    @Column(name = "fecha_creacion", updatable = false)
+    @Column(name = "fecha_creacion", updatable = true)
     @Temporal(TemporalType.DATE)
-    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.PUBLIC)
     private Date fechaCreacion;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "marca")
@@ -39,7 +40,7 @@ public class Marca implements Serializable {
 
     @PrePersist
     public void prePersist() {
-        fechaCreacion = new Date();
+        //fechaCreacion = new Date();
     }
 
 }
