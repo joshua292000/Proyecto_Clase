@@ -7,7 +7,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
+
 public class MarcaDTO {
     private Long id;
     private String nombre;

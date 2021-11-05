@@ -185,15 +185,56 @@ public class PrincipalController extends Controller implements Initializable {
     }
     public void OnActionbtnGuardar(ActionEvent actionEvent) throws ParseException, IOException, InterruptedException {
         long idd=8;
+        String nombre= "Licencia Windows";
 
-        //for(int x=2;x<options.size();x++){
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern(DATE_FORMAT);
-            LocalDate fecha = LocalDate.parse(options.get(0).getFechadecreacion(), formato);
-            MarcaDTO marca = ConsultasService.MarcaCBX(options.get(0).getEstado(),fecha,idd,options.get(0).getMarca());
+       // ;
 
-       // }
+        /*nombre="Perez";
+        MarcaDTO marca = ConsultasService.ObtenermarcaxNombre(sacarNombre(nombre));
+        if(marca==null){
+            System.out.println("MarcaNula "+marca);
+        }
+        /*if(proveedor==null){
+            System.out.println("proveedorNula "+proveedor);
+        }*/
+        //System.out.println("Marca "+marca);*/
+        for(int x=0;x<options.size();x++){
+            System.out.println("Entre"+options.get(x));
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(options.get(x).getFechadecreacion(), formato);
+
+            if(ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca()))==null){
+                MarcaDTO marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha,options.get(x).getMarca());
+                System.out.println("Marca"+marca);
+            }
+            LocalDate fecha1 = LocalDate.parse(options.get(x).getFechadeCreaciondelProveedor(), formato);
+            if(ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor()))==null){
+                ProveedoresDTO proveedor = ConsultasService.ProveeCBX(options.get(x).getProveedor(),options.get(x).getNota(),options.get(x).getCorreoElectronico(),options.get(x).getEstado(),options.get(x).getTelefono(),fecha1,fecha1);
+            }
+            ActivoDTO activo=ConsultasService.ObtenerActivo1(Integer.parseInt(options.get(x).getContinente()),options.get(x).getEstado(),fecha,fecha,sacarNombre(options.get(x).getNombre()),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
+        }
     }
 
+    public String sacarNombre(String nombre){
+        String []n=nombre.split(" ");
+        String j=" ";
+        if(n.length>1){
+            for(int x=0;x<n.length;x++){
+                if(x==0){
+                    j=n[x];
+                }else{
+                    j=j+"%20";
+                    j=j+n[x];
+                }
+                System.out.println("Nueva cadena "+ n[x]);
+                System.out.println("Nueva cadena j "+ j);
+            }
+        }else{
+            j=nombre;
+        }
+
+        return j;
+    }
     public void OnActionbtnVisualizarInformacion(ActionEvent actionEvent) {
        //this.tbvContenido.setItems(options);
         System.out.println("Lista" + options);

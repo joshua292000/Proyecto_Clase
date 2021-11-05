@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.inventario.dto.MarcaDTO;
+import org.una.inventario.dto.ProveedoresDTO;
 import org.una.inventario.entities.Marca;
+import org.una.inventario.entities.Proveedores;
 import org.una.inventario.exceptions.NotFoundInformationException;
 import org.una.inventario.repositories.IMarcaRepository;
 import org.una.inventario.utils.MapperUtils;
@@ -38,11 +40,11 @@ public class MarcaServiceImplementation implements MarcaService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<MarcaDTO>> findByNombre(String nombre) {
-        List<Marca> marcasList = marcaRepository.findByNombre(nombre);
-        List<MarcaDTO> marcasDTOList = MapperUtils.DtoListFromEntityList(marcasList, MarcaDTO.class);
-        if (marcasDTOList.isEmpty()) throw new NotFoundInformationException();
-        return Optional.ofNullable(marcasDTOList);
+    public Optional<MarcaDTO> findByNombre(String nombre) {
+        Optional<Marca> marca = marcaRepository.findByNombre(nombre);
+        if (marca.isEmpty()) throw new NotFoundInformationException();
+        MarcaDTO marcaDTO = MapperUtils.DtoFromEntity(marca.get(), MarcaDTO.class);
+        return Optional.ofNullable(marcaDTO);
     }
 
     @Override

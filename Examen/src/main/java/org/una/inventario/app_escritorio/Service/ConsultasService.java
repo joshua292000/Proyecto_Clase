@@ -26,15 +26,68 @@ public class ConsultasService {
 
     private static ObjectMapper mapper = new ObjectMapper();
 
-    public static List<ProveedoresDTO> ProveeCBX() throws IOException, InterruptedException {
+    public static ProveedoresDTO ObtenerProvedoresxNombre(String nombre) throws IOException, InterruptedException {
 
-        List<ProveedoresDTO> proveedores = null;
+        ProveedoresDTO provedor = null;
 
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("http://localhost:8089/proveedores"))
+                .uri(URI.create("http://localhost:8089/proveedores/findByNombre/"+nombre))
+                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
+                .header("Content-Type", "application/json")
+                .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+
+        System.out.println("status "+response.statusCode());
+
+        // print response body
+        System.out.println("cuerpo "+response.body());
+        if(response.body().equals("No se encontro información en su solicitud, revise su petición")){
+            provedor=null;
+        }else{
+            provedor = mapper.readValue(response.body(), new TypeReference<ProveedoresDTO>() {});
+        }
+
+        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
+        return provedor;
+
+    }
+    public static ProveedoresDTO ProveeCBX(String Nombre, String Notas,String Correo,String Estado,String Telefono,LocalDate fecha,LocalDate fechamodi) throws IOException, InterruptedException {
+
+        ProveedoresDTO proveedores = null;
+        AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
+        String json = new StringBuilder()
+                .append("{")
+                .append("\"correoElectronico\":\"" )
+                .append(Correo)
+                .append("\",")
+                .append("\"estado\":\"" )
+                .append(Estado)
+                .append("\",")
+                .append("\"fechaCreacion\":\"" )
+                .append(fecha)
+                .append("\",")
+                .append("\"fechaModificacion\":\"" )
+                .append(fechamodi)
+                .append("\",")
+                .append("\"nombre\":\"" )
+                .append(Nombre)
+                .append("\",")
+                .append("\"notas\":\"" )
+                .append(Notas)
+                .append("\",")
+                .append("\"telefono\":\"" )
+                .append(Telefono)
+                .append("\"")
+                .append("}").toString();
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .uri(URI.create("http://localhost:8089/proveedores/"))
                 .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
                 .header("Content-Type", "application/json")
                 .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
@@ -48,15 +101,46 @@ public class ConsultasService {
         // print response body
         System.out.println("cuerpo "+response.body());
 
-        proveedores = mapper.readValue(response.body(), new TypeReference<List<ProveedoresDTO>>() {});
+        proveedores = mapper.readValue(response.body(), new TypeReference<ProveedoresDTO>() {});
 
         //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return proveedores;
 
     }
 
+    public static MarcaDTO ObtenermarcaxNombre(String nombre) throws IOException, InterruptedException {
 
-    public static MarcaDTO MarcaCBX(String Estado, LocalDate fecha, Long id, String Nombre) throws IOException, InterruptedException {
+        MarcaDTO marca = null;
+
+        AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create("http://localhost:8089/marca/findByNombre/"+nombre))
+                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
+                .header("Content-Type", "application/json")
+                .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+
+        System.out.println("status "+response.statusCode());
+
+        System.out.println("cuerpo "+response.body());
+
+        if(response.body().equals("No se encontro información en su solicitud, revise su petición")){
+            marca=null;
+        }else{
+            marca = mapper.readValue(response.body(), new TypeReference<MarcaDTO>() {});
+        }
+
+
+        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
+        return marca;
+
+    }
+    public static MarcaDTO MarcaCBX(String Estado, LocalDate fecha, String Nombre) throws IOException, InterruptedException {
 
         MarcaDTO marcas = null;
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
@@ -68,9 +152,9 @@ public class ConsultasService {
                 .append("\"fechaCreacion\":\"" )
                 .append(fecha)
                 .append("\",")
-                .append("\"id\":\"" )
+                /*.append("\"id\":\"" )
                 .append(id)
-                .append("\",")
+                .append("\",")*/
                 .append("\"nombre\":\"" )
                 .append(Nombre)
                 .append("\"")
@@ -84,20 +168,44 @@ public class ConsultasService {
                 .build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        marcas = mapper.readValue(response.body(), new TypeReference<MarcaDTO>() {});
 
         return marcas;
     }
 
 
-    public static List<ActivoDTO> ObtenerActivo1(int id, LocalDate startDate, LocalDate endDate) throws IOException, InterruptedException {
+    public static ActivoDTO ObtenerActivo1(int Continente,String Estado, LocalDate fecha, LocalDate fechaModificacion, String Nombre,MarcaDTO Marcaid, ProveedoresDTO Provedorid) throws IOException, InterruptedException {
 
-        List<ActivoDTO> activos = null;
+        ActivoDTO activos = null;
 
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
-
+        String json = new StringBuilder()
+                .append("{")
+                .append("\"continente\":\"" )
+                .append(Continente)
+                .append("\",")
+                .append("\"estado\":\"" )
+                .append(Estado)
+                .append("\",")
+                .append("\"fechaCreacion\":\"" )
+                .append(fecha)
+                .append("\",")
+                .append("\"fechaModificacion\":\"" )
+                .append(fechaModificacion)
+                .append("\",")
+                .append("\"nombre\":\"" )
+                .append(Nombre)
+                .append("\",")
+                .append("\"marca\":\"" )
+                .append(Marcaid)
+                .append("\",")
+                .append("\"proveedor\":\"" )
+                .append(Provedorid)
+                .append("\"")
+                .append("}").toString();
         HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("http://localhost:8089/activo/findByActivosxMarcaAscBetweenFechas/"+id+"/"+startDate+"/"+endDate))
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .uri(URI.create("http://localhost:8089/activo/"))
                 .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
                 .header("Content-Type", "application/json")
                 .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
@@ -111,7 +219,7 @@ public class ConsultasService {
         // print response body
         System.out.println("cuerpo "+response.body());
 
-        activos = mapper.readValue(response.body(), new TypeReference<List<ActivoDTO>>() {});
+        activos = mapper.readValue(response.body(), new TypeReference<ActivoDTO>() {});
 
         //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return activos;

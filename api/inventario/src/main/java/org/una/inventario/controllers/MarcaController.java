@@ -42,7 +42,7 @@ public class MarcaController {
     @GetMapping("/findByNombre/{nombre}")
     @ApiOperation(value = "Obtiene una lista de marcas a partir de su nombre", response = MarcaDTO.class, responseContainer = "List", tags = "Marca")
     public ResponseEntity<?> findByNombre(@PathVariable(value = "nombre") String nombreMarca) {
-        Optional<List<MarcaDTO>>marcaFound= marcaService.findByNombre(nombreMarca);
+        Optional<MarcaDTO>marcaFound= marcaService.findByNombre(nombreMarca);
         return new ResponseEntity<>(marcaFound, HttpStatus.OK);
     }
 
