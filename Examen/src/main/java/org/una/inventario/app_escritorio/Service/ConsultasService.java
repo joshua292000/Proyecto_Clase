@@ -14,9 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -176,11 +174,10 @@ public class ConsultasService {
     }
 
 
-    public static ActivoDTO ObtenerActivo1(Long Continente,String Estado, LocalDate fecha, LocalDate fechaModificacion, String Nombre,MarcaDTO Marcaid, ProveedoresDTO Provedorid) throws IOException, InterruptedException {
-        LocalDate localDatemarca = Instant.ofEpochMilli(Marcaid.getFechaCreacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localDateProveedor = Instant.ofEpochMilli(Provedorid.getFechaCreacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localDateproveedormo = Instant.ofEpochMilli(Provedorid.getFechaModificacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+    public static ActivoDTO ObtenerActivo1(int Continente,String Estado, LocalDate fecha, LocalDate fechaModificacion, String Nombre,MarcaDTO Marcaid, ProveedoresDTO Provedorid) throws IOException, InterruptedException {
+
         ActivoDTO activos = null;
+
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
         String json = new StringBuilder()
                 .append("{")
@@ -196,74 +193,16 @@ public class ConsultasService {
                 .append("\"fechaModificacion\":\"" )
                 .append(fechaModificacion)
                 .append("\",")
-                .append("\"marca\":{" )
-                .append("\"estado\":\"" )
-                .append(Marcaid.getEstado())
-                .append("\",")
-                .append("\"fechaCreacion\":\"" )
-                .append(localDatemarca)
-                .append("\",")
-                .append("\"id\":\"" )
-                .append(Marcaid.getId())
-                .append("\",")
-                .append("\"nombre\":\"" )
-                .append(Marcaid.getNombre())
-                .append("\"},")
                 .append("\"nombre\":\"" )
                 .append(Nombre)
                 .append("\",")
-                .append("\"proveedor\":{" )
-                .append("\"correoElectronico\":\"" )
-                .append(Provedorid.getCorreoElectronico())
-                .append("\",")
-                .append("\"estado\":\"" )
-                .append(Provedorid.getEstado())
-                .append("\",")
-                .append("\"fechaCreacion\":\"" )
-                .append(localDateProveedor)
-                .append("\",")
-                .append("\"fechaModificacion\":\"" )
-                .append(localDateproveedormo)
-                .append("\",")
-                .append("\"id\":\"" )
-                .append(Provedorid.getId())
-                .append("\",")
-                .append("\"nombre\":\"" )
-                .append(Provedorid.getNombre())
-                .append("\",")
-                .append("\"notas\":\"" )
-                .append(Provedorid.getNotas())
-                .append("\",")
-                .append("\"telefono\":\"" )
-                .append(Provedorid.getTelefono())
-                .append("\"}")
-                .append("}").toString();
-
-       /* String json = new StringBuilder()
-                .append("{")
-                .append("\"continente\":\"" )
-                .append(Continente)
-                .append("\",")
-                .append("\"estado\":\"" )
-                .append(Estado)
-                .append("\",")
-                .append("\"fechaCreacion\":\"" )
-                .append(fecha)
-                .append("\",")
-                .append("\"fechaModificacion\":\"" )
-                .append(fechaModificacion)
-                .append("\",")
-                .append("\"nombre\":\"" )
-                .append(Nombre)
-                .append("\",")
-                .append("{\"marca\":\"" )
+                .append("\"marca\":\"" )
                 .append(Marcaid)
-                .append("\"},")
-                .append("{\"proveedor\":\"" )
+                .append("\",")
+                .append("\"proveedor\":\"" )
                 .append(Provedorid)
-                .append("\"}")
-                .append("}").toString();*/
-        System.out.println("json "+json);
+                .append("\"")
+                .append("}").toString();
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .uri(URI.create("http://localhost:8089/activo/"))

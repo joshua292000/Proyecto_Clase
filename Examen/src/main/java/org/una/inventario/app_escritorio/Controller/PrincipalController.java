@@ -50,7 +50,7 @@ public class PrincipalController extends Controller implements Initializable {
     public TableColumn tcFechadecreacion;
     public ScrollPane SPane;
     String[] opcionemss = {"Corregir la información", "Descartar la información"};
-    final static String DATE_FORMAT = "dd/MM/yyyy";
+    final static String DATE_FORMAT = "yyyy-MM-dd";
     public String SEPARADOR = ";";
     private  ObservableList<ActivosDTO>  options = FXCollections.observableArrayList();
 
@@ -186,6 +186,18 @@ public class PrincipalController extends Controller implements Initializable {
     public void OnActionbtnGuardar(ActionEvent actionEvent) throws ParseException, IOException, InterruptedException {
         long idd=8;
         String nombre= "Licencia Windows";
+
+       // ;
+
+        /*nombre="Perez";
+        MarcaDTO marca = ConsultasService.ObtenermarcaxNombre(sacarNombre(nombre));
+        if(marca==null){
+            System.out.println("MarcaNula "+marca);
+        }
+        /*if(proveedor==null){
+            System.out.println("proveedorNula "+proveedor);
+        }*/
+        //System.out.println("Marca "+marca);*/
         for(int x=0;x<options.size();x++){
             System.out.println("Entre"+options.get(x));
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -199,7 +211,7 @@ public class PrincipalController extends Controller implements Initializable {
             if(ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor()))==null){
                 ProveedoresDTO proveedor = ConsultasService.ProveeCBX(options.get(x).getProveedor(),options.get(x).getNota(),options.get(x).getCorreoElectronico(),options.get(x).getEstado(),options.get(x).getTelefono(),fecha1,fecha1);
             }
-            ActivoDTO activo=ConsultasService.ObtenerActivo1(Long.parseLong(options.get(x).getContinente()),options.get(x).getEstado(),fecha,fecha,options.get(x).getNombre(),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
+            ActivoDTO activo=ConsultasService.ObtenerActivo1(Integer.parseInt(options.get(x).getContinente()),options.get(x).getEstado(),fecha,fecha,sacarNombre(options.get(x).getNombre()),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
         }
     }
 
@@ -220,6 +232,7 @@ public class PrincipalController extends Controller implements Initializable {
         }else{
             j=nombre;
         }
+
         return j;
     }
     public void OnActionbtnVisualizarInformacion(ActionEvent actionEvent) {
