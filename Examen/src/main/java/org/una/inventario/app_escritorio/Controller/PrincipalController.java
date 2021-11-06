@@ -67,6 +67,7 @@ public class PrincipalController extends Controller implements Initializable {
     }
 
     public void OnActionbtnAgregarA(ActionEvent actionEvent) throws IOException, CsvValidationException {
+        tbvContenido.getItems().clear();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Buscar archivos");
         fileChooser.getExtensionFilters().addAll(
@@ -103,17 +104,13 @@ public class PrincipalController extends Controller implements Initializable {
 
                     if (Validarfila2 == false) {
                         int seleccion = JOptionPane.showOptionDialog(null, "El campo con la siguiente información <<" + fila[2] + ">> posee letras, favor solo ingresar numeros, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
-                        System.out.println("Favor revisar la fila del numero, ingrese solo números");
                         switch (seleccion) {
                             case 0:
-                                System.out.println("Hacer cambios");
                                 String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[2] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                System.out.println("Cambios " + respuesta);
                                 fila[2] = respuesta;
                                 break;
                             case 1:
                                 fila[2] = null;
-                                System.out.println("Descartar");
                                 break;
                         }
 
@@ -125,11 +122,9 @@ public class PrincipalController extends Controller implements Initializable {
                             case 0:
                                 String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[4] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
                                 fila[4] = respuesta;
-                                System.out.println("Nuevo Campo Fila[4] " + fila[4]);
                                 break;
                             case 1:
                                 fila[4] = null;
-                                System.out.println("Descartar");
                                 break;
                         }
                     }
@@ -137,14 +132,11 @@ public class PrincipalController extends Controller implements Initializable {
                         int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[6] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
                         switch (seleccion) {
                             case 0:
-                                System.out.println("Hacer cambios");
                                 String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[6] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                System.out.println("Cambios " + respuesta);
                                 fila[6] = respuesta;
                                 break;
                             case 1:
                                 fila[6] = null;
-                                System.out.println("Descartar");
                                 break;
                         }
                     }
@@ -152,14 +144,11 @@ public class PrincipalController extends Controller implements Initializable {
                         int seleccion = JOptionPane.showOptionDialog(null,"El campo <<"+fila[7]+">> favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
                         switch (seleccion){
                             case 0:
-                                System.out.println("Hacer cambios");
-                                String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<"+fila[7]+">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                System.out.println("Cambios "+respuesta);
+                                String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<"+fila[7]+">>(1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida)", "Error!", JOptionPane.ERROR_MESSAGE);
                                 fila[7]=respuesta;
                                 break;
                             case 1:
                                 fila[7]=null;
-                                System.out.println("Descartar");
                                 break;
                         }
                     }
@@ -167,14 +156,11 @@ public class PrincipalController extends Controller implements Initializable {
                         int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[10] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
                         switch (seleccion) {
                             case 0:
-                                System.out.println("Hacer cambios");
                                 String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[10] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                System.out.println("Cambios " + respuesta);
                                 fila[10] = respuesta;
                                 break;
                             case 1:
                                 fila[10] = null;
-                                System.out.println("Descartar");
                                 break;
                         }
                     }
@@ -187,19 +173,17 @@ public class PrincipalController extends Controller implements Initializable {
         long idd=8;
         String nombre= "Licencia Windows";
         for(int x=0;x<options.size();x++){
-            System.out.println("Entre"+options.get(x));
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate fecha = LocalDate.parse(options.get(x).getFechadecreacion(), formato);
 
             if(ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca()))==null){
                 MarcaDTO marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha,options.get(x).getMarca());
-                System.out.println("Marca"+marca);
             }
             LocalDate fecha1 = LocalDate.parse(options.get(x).getFechadeCreaciondelProveedor(), formato);
             if(ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor()))==null){
                 ProveedoresDTO proveedor = ConsultasService.ProveeCBX(options.get(x).getProveedor(),options.get(x).getNota(),options.get(x).getCorreoElectronico(),options.get(x).getEstado(),options.get(x).getTelefono(),fecha1,fecha1);
             }
-            ActivoDTO activo=ConsultasService.ObtenerActivo1(Long.parseLong(options.get(x).getContinente()),options.get(x).getEstado(),fecha,fecha,options.get(x).getNombre(),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
+            ActivoDTO activo=ConsultasService.ObtenerActivo1(Long.parseLong(options.get(x).getContinente()),Long.parseLong(options.get(x).getNumero()),options.get(x).getEstado(),fecha,fecha,options.get(x).getNombre(),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
         }
     }
 
@@ -214,8 +198,6 @@ public class PrincipalController extends Controller implements Initializable {
                     j=j+"%20";
                     j=j+n[x];
                 }
-                System.out.println("Nueva cadena "+ n[x]);
-                System.out.println("Nueva cadena j "+ j);
             }
         }else{
             j=nombre;

@@ -43,19 +43,11 @@ public class ConsultasService {
                 .build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        System.out.println("status "+response.statusCode());
-
-        // print response body
-        System.out.println("cuerpo "+response.body());
         if(response.body().equals("No se encontro información en su solicitud, revise su petición")){
             provedor=null;
         }else{
             provedor = mapper.readValue(response.body(), new TypeReference<ProveedoresDTO>() {});
         }
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return provedor;
 
     }
@@ -97,15 +89,7 @@ public class ConsultasService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-
-        System.out.println("status "+response.statusCode());
-
-        // print response body
-        System.out.println("cuerpo "+response.body());
-
         proveedores = mapper.readValue(response.body(), new TypeReference<ProveedoresDTO>() {});
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return proveedores;
 
     }
@@ -126,19 +110,11 @@ public class ConsultasService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-
-        System.out.println("status "+response.statusCode());
-
-        System.out.println("cuerpo "+response.body());
-
         if(response.body().equals("No se encontro información en su solicitud, revise su petición")){
             marca=null;
         }else{
             marca = mapper.readValue(response.body(), new TypeReference<MarcaDTO>() {});
         }
-
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return marca;
 
     }
@@ -154,9 +130,6 @@ public class ConsultasService {
                 .append("\"fechaCreacion\":\"" )
                 .append(fecha)
                 .append("\",")
-                /*.append("\"id\":\"" )
-                .append(id)
-                .append("\",")*/
                 .append("\"nombre\":\"" )
                 .append(Nombre)
                 .append("\"")
@@ -176,7 +149,7 @@ public class ConsultasService {
     }
 
 
-    public static ActivoDTO ObtenerActivo1(Long Continente,String Estado, LocalDate fecha, LocalDate fechaModificacion, String Nombre,MarcaDTO Marcaid, ProveedoresDTO Provedorid) throws IOException, InterruptedException {
+    public static ActivoDTO ObtenerActivo1(Long Continente,Long numero,String Estado, LocalDate fecha, LocalDate fechaModificacion, String Nombre,MarcaDTO Marcaid, ProveedoresDTO Provedorid) throws IOException, InterruptedException {
         LocalDate localDatemarca = Instant.ofEpochMilli(Marcaid.getFechaCreacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localDateProveedor = Instant.ofEpochMilli(Provedorid.getFechaCreacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localDateproveedormo = Instant.ofEpochMilli(Provedorid.getFechaModificacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
@@ -212,7 +185,10 @@ public class ConsultasService {
                 .append("\"nombre\":\"" )
                 .append(Nombre)
                 .append("\",")
-                .append("\"proveedor\":{" )
+                .append("\"numero\":\"" )
+                .append(numero)
+                .append("\",")
+                .append("\"proveedores\":{" )
                 .append("\"correoElectronico\":\"" )
                 .append(Provedorid.getCorreoElectronico())
                 .append("\",")
@@ -238,32 +214,6 @@ public class ConsultasService {
                 .append(Provedorid.getTelefono())
                 .append("\"}")
                 .append("}").toString();
-
-       /* String json = new StringBuilder()
-                .append("{")
-                .append("\"continente\":\"" )
-                .append(Continente)
-                .append("\",")
-                .append("\"estado\":\"" )
-                .append(Estado)
-                .append("\",")
-                .append("\"fechaCreacion\":\"" )
-                .append(fecha)
-                .append("\",")
-                .append("\"fechaModificacion\":\"" )
-                .append(fechaModificacion)
-                .append("\",")
-                .append("\"nombre\":\"" )
-                .append(Nombre)
-                .append("\",")
-                .append("{\"marca\":\"" )
-                .append(Marcaid)
-                .append("\"},")
-                .append("{\"proveedor\":\"" )
-                .append(Provedorid)
-                .append("\"}")
-                .append("}").toString();*/
-        System.out.println("json "+json);
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .uri(URI.create("http://localhost:8089/activo/"))
@@ -274,104 +224,8 @@ public class ConsultasService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-
-        System.out.println("status "+response.statusCode());
-
-        // print response body
-        System.out.println("cuerpo "+response.body());
-
         activos = mapper.readValue(response.body(), new TypeReference<ActivoDTO>() {});
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
         return activos;
 
     }
-
-    public static List<ActivoDTO> ObtenerActivo2(int id, LocalDate startDate, LocalDate endDate) throws IOException, InterruptedException {
-
-        List<ActivoDTO> activos = null;
-
-        AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("http://localhost:8089/activo/findByActivosxMarcaDescBetweenFechas/"+id+"/"+startDate+"/"+endDate))
-                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
-                .header("Content-Type", "application/json")
-                .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        System.out.println("status "+response.statusCode());
-
-        // print response body
-        System.out.println("cuerpo "+response.body());
-
-        activos = mapper.readValue(response.body(), new TypeReference<List<ActivoDTO>>() {});
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
-        return activos;
-
-    }
-
-    public static List<ActivoDTO> ObtenerActivo3(int id, LocalDate startDate, LocalDate endDate) throws IOException, InterruptedException {
-
-        List<ActivoDTO> activos = null;
-
-        AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("http://localhost:8089/activo/findByActivosxProveDescBetweenFechas/"+id+"/"+startDate+"/"+endDate))
-                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
-                .header("Content-Type", "application/json")
-                .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        System.out.println("status "+response.statusCode());
-
-        // print response body
-        System.out.println("cuerpo "+response.body());
-
-        activos = mapper.readValue(response.body(), new TypeReference<List<ActivoDTO>>() {});
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
-        return activos;
-
-    }
-
-    public static List<ActivoDTO> ObtenerActivo4(int id, LocalDate startDate, LocalDate endDate) throws IOException, InterruptedException {
-
-        List<ActivoDTO> activos = null;
-
-        AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("http://localhost:8089/activo/findByActivosxProveAscBetweenFechas/"+id+"/"+startDate+"/"+endDate))
-                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
-                .header("Content-Type", "application/json")
-                .setHeader("AUTHORIZATION", "Bearer " + token.getJwt())
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        System.out.println("status "+response.statusCode());
-
-        // print response body
-        System.out.println("cuerpo "+response.body());
-
-        activos = mapper.readValue(response.body(), new TypeReference<List<ActivoDTO>>() {});
-
-        //AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
-        return activos;
-
-    }
-
 }
