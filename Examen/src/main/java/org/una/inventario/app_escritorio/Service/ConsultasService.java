@@ -212,7 +212,7 @@ public class ConsultasService {
                 .append("\"nombre\":\"" )
                 .append(Nombre)
                 .append("\",")
-                .append("\"proveedor\":{" )
+                .append("\"proveedores\":{" )
                 .append("\"correoElectronico\":\"" )
                 .append(Provedorid.getCorreoElectronico())
                 .append("\",")

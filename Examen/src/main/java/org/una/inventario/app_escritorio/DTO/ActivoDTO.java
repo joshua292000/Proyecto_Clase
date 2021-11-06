@@ -12,7 +12,7 @@ import java.util.Date;
 public class ActivoDTO {
     private Long id;
     private CategoriasDTO categoria;
-    private ProveedoresDTO proveedor;
+    private ProveedoresDTO proveedores;
     private MarcaDTO marca;
     private Long continente;
     private String nombre;
