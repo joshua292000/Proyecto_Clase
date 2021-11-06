@@ -10,6 +10,6 @@ public class Inicio extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         FlowController.getInstance().InitializeFlow(stage, null);
-        FlowController.getInstance().goViewInWindow("Ayuda");
+        FlowController.getInstance().goViewInWindow("Principalview");
     }
 }
