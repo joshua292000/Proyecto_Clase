@@ -35,6 +35,9 @@ public class Activo implements Serializable {
     @Column(name = "continente")
     private Long continente;
 
+    @Column(name = "numero")
+    private Long numero;
+
     @Column(name = "nombre", length = 100)
     private String nombre;
 
