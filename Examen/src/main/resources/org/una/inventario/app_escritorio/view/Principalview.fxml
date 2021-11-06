@@ -24,22 +24,22 @@
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnGuardar" buttonType="RAISED" layoutX="32.0" layoutY="240.0" onAction="#OnActionbtnGuardar" prefHeight="28.0" prefWidth="133.0" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Guardar">
+      <JFXButton fx:id="btnGuardar" buttonType="RAISED" disable="true" layoutX="33.0" layoutY="251.0" onAction="#OnActionbtnGuardar" prefHeight="28.0" prefWidth="133.0" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Guardar">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnVisualizarInformacion" buttonType="RAISED" layoutX="19.0" layoutY="384.0" onAction="#OnActionbtnVisualizarInformacion" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Ayuda">
+      <JFXButton fx:id="btnVisualizarInformacion" buttonType="RAISED" layoutX="32.0" layoutY="380.0" onAction="#OnActionbtnVisualizarInformacion" prefHeight="28.0" prefWidth="133.0" ripplerFill="#a5b5ac" style="-fx-background-color: #1cea72;" text="Ayuda">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </JFXButton>
-      <Label fx:id="lblGuardar" layoutX="26.0" layoutY="202.0" text="Guardar en base de datos:">
+      <Label fx:id="lblGuardar" layoutX="27.0" layoutY="221.0" text="Guardar en base de datos:">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblMostrarInformacion" layoutX="14.0" layoutY="338.0" text="                Ayuda:">
+      <Label fx:id="lblMostrarInformacion" layoutX="78.0" layoutY="339.0" text="Ayuda:">
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font>

@@ -134,12 +134,12 @@ public class PrincipalController extends Controller implements Initializable {
                                     break;
                             }
                         }
-                        if (fila[7] != null || fila[7] != "1" || fila[7] != "2" || fila[7] != "3" || fila[7] != "4" || fila[7] != "5" || fila[7] != "6") {
+                        if (fila[7]!="1"||fila[7]!="2"||fila[7]!="3"||fila[7]!="4"||fila[7]!="5"||fila[7]!="6") {
                             int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[7] + ">> favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
                             switch (seleccion) {
                                 case 0:
-                                    String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[7] + ">>(1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida)", "Error!", JOptionPane.ERROR_MESSAGE);
-                                    fila[7] = respuesta;
+                                        String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[7] + ">>(1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida)", "Error!", JOptionPane.ERROR_MESSAGE);
+                                        fila[7] = respuesta;
                                     break;
                                 case 1:
                                     fila[7] = null;
@@ -180,6 +180,7 @@ public class PrincipalController extends Controller implements Initializable {
             }
             ActivoDTO activo=ConsultasService.ObtenerActivo1(Long.parseLong(options.get(x).getContinente()),Long.parseLong(options.get(x).getNumero()),options.get(x).getEstado(),fecha,fecha,options.get(x).getNombre(),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
         }
+        JOptionPane.showMessageDialog(null,"Archivo guardado correctamente");
     }
 
     public String sacarNombre(String nombre){
@@ -205,6 +206,7 @@ public class PrincipalController extends Controller implements Initializable {
     }
 
     public void LlenarTabla(){
+
         this.tcMarca.setCellValueFactory(new PropertyValueFactory("marca"));
         this.tcProveedor.setCellValueFactory(new PropertyValueFactory("proveedor"));
         this.tcNumero.setCellValueFactory(new PropertyValueFactory("numero"));
