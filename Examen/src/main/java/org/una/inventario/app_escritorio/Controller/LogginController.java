@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 import org.una.inventario.app_escritorio.DTO.AuthenticationResponse;
 import org.una.inventario.app_escritorio.Service.AutenticacionService;
 import org.una.inventario.app_escritorio.Util.FlowController;
@@ -21,7 +22,6 @@ public class LogginController extends Controller implements Initializable {
     public JFXPasswordField txtContrasenia;
     public JFXButton btnIngresar;
 
-
     @Override
     public void initialize() {
 
@@ -36,7 +36,8 @@ public class LogginController extends Controller implements Initializable {
         AuthenticationResponse login = AutenticacionService.Autenticacion(txtUsuario.getText().toString(), txtContrasenia.getText().toString());
 
         if(login != null){
-            FlowController.getInstance().goViewInWindow("Principalview");
+            ((Stage) btnIngresar.getScene().getWindow()).close();
+            FlowController.getInstance().goViewInWindow("Ayuda");
 
         }
     }

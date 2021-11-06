@@ -17,7 +17,7 @@
             <Image url="@../resources/usuario.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="txtUsuario" labelFloat="true" layoutX="127.0" layoutY="209.0" prefHeight="25.0" prefWidth="161.0" promptText="Usuario:" />
+      <JFXTextField fx:id="txtUsuario" labelFloat="true" layoutX="127.0" layoutY="209.0" prefHeight="25.0" prefWidth="161.0" promptText="Cedula:" />
       <JFXPasswordField fx:id="txtContrasenia" labelFloat="true" layoutX="127.0" layoutY="284.0" prefHeight="25.0" prefWidth="161.0" promptText="Contraseña:" />
       <JFXButton fx:id="btnIngresar" buttonType="RAISED" layoutX="147.0" layoutY="373.0" onAction="#OnActionbtnIngresar" prefHeight="25.0" prefWidth="105.0" ripplerFill="#5fc3d9" style="-fx-background-color: #5b77da;" text="Ingresar" />
    </children>

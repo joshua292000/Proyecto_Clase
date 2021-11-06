@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import org.una.inventario.app_escritorio.Util.FlowController;
 
 import java.net.URL;
@@ -20,7 +21,7 @@ public class AyudaController extends Controller implements Initializable {
 
     @FXML
     private Label lblTitulo;
-
+    private int cont = 1;
 
 
     @Override
@@ -41,6 +42,13 @@ public class AyudaController extends Controller implements Initializable {
     @FXML
     void OnActionAtras(ActionEvent event) {
 
-        FlowController.getInstance().goViewInWindow("Principalview");
+        if(cont ==1 ){
+            cont=2;
+            ((Stage) btnAtras.getScene().getWindow()).close();
+            FlowController.getInstance().goViewInWindow("Principalview");
+        }else if(cont == 2){
+            ((Stage) btnAtras.getScene().getWindow()).close();
+        }
+
     }
 }

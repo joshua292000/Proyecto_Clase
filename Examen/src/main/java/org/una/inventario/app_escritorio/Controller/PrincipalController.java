@@ -14,9 +14,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.una.inventario.app_escritorio.DTO.*;
 import org.una.inventario.app_escritorio.Service.ConsultasService;
 import org.una.inventario.app_escritorio.Util.AppContext;
+import org.una.inventario.app_escritorio.Util.FlowController;
 
 import javax.swing.*;
 import java.io.File;
@@ -54,7 +56,6 @@ public class PrincipalController extends Controller implements Initializable {
     public String SEPARADOR = ";";
     private  ObservableList<ActivosDTO>  options = FXCollections.observableArrayList();
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //LlenarTabla();
@@ -64,107 +65,101 @@ public class PrincipalController extends Controller implements Initializable {
     public void initialize() {
       LlenarTabla();
 
+
     }
 
     public void OnActionbtnAgregarA(ActionEvent actionEvent) throws IOException, CsvValidationException {
         tbvContenido.getItems().clear();
+        btnGuardar.setDisable(false);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Buscar archivos");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("csv", "*.CSV")
         );
-        File filecsv = fileChooser.showOpenDialog(null);
+        List<File> filecsv = fileChooser.showOpenMultipleDialog(null);
+        //File filecsv = fileChooser.showOpenDialog(null);
         FileReader archCSV = null;
         CSVReader csvReader = null;
-        archCSV = new FileReader(filecsv);
-        CSVParser conPuntoYComa = new CSVParserBuilder().withSeparator(';').build();
-        csvReader = new CSVReaderBuilder(archCSV).withCSVParser(conPuntoYComa).build();
-        String[] fila = null;
-        int num=0;
-        if (filecsv != null) {
-            while ((fila = csvReader.readNext()) != null) {
-                if (num < 1) {
-                    num = 1;
-                } else {
-                    System.out.println(fila[0]
-                            + " | " + fila[1]
-                            + " |  " + fila[2]
-                            + " |   " + fila[3]
-                            + " |    " + fila[4]
-                            + " |      " + fila[5]
-                            + " |       " + fila[6]
-                            + " |        " + fila[7]
-                            + " |         " + fila[8]
-                            + " |           " + fila[9]
-                            + " |             " + fila[10]
-                    );
-                    //options.add(new ActivosDTO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9],fila[10]));
-                    boolean Validarfila2 = fila[2].matches("[+-]?\\d*(\\.\\d+)?");
-                    boolean Validarfila4 = fila[4].matches("[+-]?\\d*(\\.\\d+)?");
+        for(int i=0; i<filecsv.size();i++) {
+            archCSV = new FileReader(filecsv.get(i));
 
-                    if (Validarfila2 == false) {
-                        int seleccion = JOptionPane.showOptionDialog(null, "El campo con la siguiente información <<" + fila[2] + ">> posee letras, favor solo ingresar numeros, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
-                        switch (seleccion) {
-                            case 0:
-                                String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[2] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                fila[2] = respuesta;
-                                break;
-                            case 1:
-                                fila[2] = null;
-                                break;
-                        }
 
-                    }
-                    if (Validarfila4 == false) {
-                        int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[4] + ">> posee letras, favor solo ingresar numeros sin guiones ni letras, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
-                        System.out.println("Favor revisar la fila de teléfono, ingrese solo números sin guiones de por medio");
-                        switch (seleccion) {
-                            case 0:
-                                String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[4] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                fila[4] = respuesta;
-                                break;
-                            case 1:
-                                fila[4] = null;
-                                break;
+            CSVParser conPuntoYComa = new CSVParserBuilder().withSeparator(';').build();
+            csvReader = new CSVReaderBuilder(archCSV).withCSVParser(conPuntoYComa).build();
+            String[] fila = null;
+            int num = 0;
+            if (filecsv != null) {
+                while ((fila = csvReader.readNext()) != null) {
+                    if (num < 1) {
+                        num = 1;
+                    } else {
+                        boolean Validarfila2 = fila[2].matches("[+-]?\\d*(\\.\\d+)?");
+                        boolean Validarfila4 = fila[4].matches("[+-]?\\d*(\\.\\d+)?");
+
+                        if (Validarfila2 == false) {
+                            int seleccion = JOptionPane.showOptionDialog(null, "El campo con la siguiente información <<" + fila[2] + ">> posee letras, favor solo ingresar numeros, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
+                            switch (seleccion) {
+                                case 0:
+                                    String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[2] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                                    fila[2] = respuesta;
+                                    break;
+                                case 1:
+                                    fila[2] = null;
+                                    break;
+                            }
+
                         }
-                    }
-                    if (isDateValid(fila[6]) == false) {
-                        int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[6] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
-                        switch (seleccion) {
-                            case 0:
-                                String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[6] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                fila[6] = respuesta;
-                                break;
-                            case 1:
-                                fila[6] = null;
-                                break;
+                        if (Validarfila4 == false) {
+                            int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[4] + ">> posee letras, favor solo ingresar numeros sin guiones ni letras, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
+                            System.out.println("Favor revisar la fila de teléfono, ingrese solo números sin guiones de por medio");
+                            switch (seleccion) {
+                                case 0:
+                                    String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[4] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                                    fila[4] = respuesta;
+                                    break;
+                                case 1:
+                                    fila[4] = null;
+                                    break;
+                            }
                         }
-                    }
-                    if(fila[7]!=null||fila[7]!="1"||fila[7]!="2"||fila[7]!="3"||fila[7]!="4"||fila[7]!="5"||fila[7]!="6"){
-                        int seleccion = JOptionPane.showOptionDialog(null,"El campo <<"+fila[7]+">> favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss,opcionemss[0]);
-                        switch (seleccion){
-                            case 0:
-                                String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<"+fila[7]+">>(1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida)", "Error!", JOptionPane.ERROR_MESSAGE);
-                                fila[7]=respuesta;
-                                break;
-                            case 1:
-                                fila[7]=null;
-                                break;
+                        if (isDateValid(fila[6]) == false) {
+                            int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[6] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
+                            switch (seleccion) {
+                                case 0:
+                                    String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[6] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                                    fila[6] = respuesta;
+                                    break;
+                                case 1:
+                                    fila[6] = null;
+                                    break;
+                            }
                         }
-                    }
-                    if (isDateValid(fila[10]) == false) {
-                        int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[10] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
-                        switch (seleccion) {
-                            case 0:
-                                String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[10] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
-                                fila[10] = respuesta;
-                                break;
-                            case 1:
-                                fila[10] = null;
-                                break;
+                        if (fila[7] != null || fila[7] != "1" || fila[7] != "2" || fila[7] != "3" || fila[7] != "4" || fila[7] != "5" || fila[7] != "6") {
+                            int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[7] + ">> favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
+                            switch (seleccion) {
+                                case 0:
+                                    String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[7] + ">>(1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida)", "Error!", JOptionPane.ERROR_MESSAGE);
+                                    fila[7] = respuesta;
+                                    break;
+                                case 1:
+                                    fila[7] = null;
+                                    break;
+                            }
                         }
+                        if (isDateValid(fila[10]) == false) {
+                            int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[10] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
+                            switch (seleccion) {
+                                case 0:
+                                    String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[10] + ">>", "Error!", JOptionPane.ERROR_MESSAGE);
+                                    fila[10] = respuesta;
+                                    break;
+                                case 1:
+                                    fila[10] = null;
+                                    break;
+                            }
+                        }
+                        options.add(new ActivosDTO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9], fila[10]));
                     }
-                    options.add(new ActivosDTO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6], fila[7], fila[8], fila[9], fila[10]));
                 }
             }
         }
@@ -205,8 +200,8 @@ public class PrincipalController extends Controller implements Initializable {
         return j;
     }
     public void OnActionbtnVisualizarInformacion(ActionEvent actionEvent) {
-       //this.tbvContenido.setItems(options);
-        System.out.println("Lista" + options);
+        //((Stage) btnVisualizarInformacion.getScene().getWindow()).close();
+        FlowController.getInstance().goViewInWindow("Ayuda");
     }
 
     public void LlenarTabla(){
@@ -221,7 +216,6 @@ public class PrincipalController extends Controller implements Initializable {
         this.tcNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         this.tcEstado.setCellValueFactory(new PropertyValueFactory("estado"));
         this.tcFechadecreacion.setCellValueFactory(new PropertyValueFactory("fechadecreacion"));
-        //options.add(new ActivosDTO("","","","","","","","","","",""));
         this.tbvContenido.setItems(options);
 
     }
@@ -232,10 +226,8 @@ public class PrincipalController extends Controller implements Initializable {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);
             df.parse(date);
-            System.out.println("Yes");
             return true;
         } catch (ParseException e) {
-            System.out.println("No");
             return false;
         }
     }
