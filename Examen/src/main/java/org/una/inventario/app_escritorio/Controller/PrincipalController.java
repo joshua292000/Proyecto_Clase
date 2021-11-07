@@ -74,7 +74,7 @@ public class PrincipalController extends Controller implements Initializable {
         tbvContenido.getItems().clear();
         btnGuardar.setDisable(false);
         String nombre="";
-       // try {
+        try {
 
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Buscar archivos");
@@ -100,9 +100,6 @@ public class PrincipalController extends Controller implements Initializable {
                         System.out.println("Fila tamaño = "+filecsv.get(i).getName());
                         if(fila.length!=11){
                             JOptionPane.showMessageDialog(null,"El archivo <<"+nombre +">> no presenta el formato adecuado para poder abrirlo.Si no sabe cuál es el formato, diríjase al botón de <<Ayuda>>, luego en formato.");
-                            if(filecsv.size()>1){
-                                i++;
-                            }
                             break;
                         }
 
@@ -195,9 +192,9 @@ public class PrincipalController extends Controller implements Initializable {
                     }
                 }
             }
-       /* }catch (Exception e){
+        }catch (Exception e){
             JOptionPane.showMessageDialog(null,"El archivo <<"+nombre +">> no presenta el formato adecuado para poder abrirlo.Si no sabe cuál es el formato, diríjase al botón de <<Ayuda>>, luego en formato.");
-        }*/
+        }
     }
     public void OnActionbtnGuardar(ActionEvent actionEvent) throws ParseException, IOException, InterruptedException {
         long idd=8;
