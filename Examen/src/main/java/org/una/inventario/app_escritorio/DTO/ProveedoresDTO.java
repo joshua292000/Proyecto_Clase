@@ -1,6 +1,8 @@
 package org.una.inventario.app_escritorio.DTO;
 
 import lombok.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data

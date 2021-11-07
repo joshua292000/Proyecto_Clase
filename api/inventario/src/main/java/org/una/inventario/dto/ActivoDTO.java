@@ -3,6 +3,8 @@ package org.una.inventario.dto;
 import lombok.*;
 import org.una.inventario.entities.Marca;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -19,6 +21,6 @@ public class ActivoDTO {
     private Long numero;
     private String nombre;
     private String estado;
-    private Date fechaCreacion;
-    private Date fechaModificacion;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaModificacion;
 }

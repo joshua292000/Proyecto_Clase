@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,14 +47,14 @@ public class Activo implements Serializable {
     private String estado;
 
     @Column(name = "fecha_creacion", updatable = false)
-    @Temporal(TemporalType.DATE)
+   //@Temporal(TemporalType.DATE)
     @Setter(AccessLevel.PUBLIC)
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
 
     @Column(name = "fecha_modificacion", updatable = false)
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.TIME)
     @Setter(AccessLevel.PUBLIC)
-    private Date fechaModificacion;
+    private LocalDate fechaModificacion;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activo")
     @Builder.Default

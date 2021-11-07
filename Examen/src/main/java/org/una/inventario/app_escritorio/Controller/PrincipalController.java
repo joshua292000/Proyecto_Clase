@@ -30,9 +30,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 public class PrincipalController extends Controller implements Initializable {
 
     public JFXButton btnGuardar;
@@ -73,7 +74,7 @@ public class PrincipalController extends Controller implements Initializable {
         tbvContenido.getItems().clear();
         btnGuardar.setDisable(false);
         String nombre="";
-        try {
+       // try {
 
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Buscar archivos");
@@ -137,7 +138,7 @@ public class PrincipalController extends Controller implements Initializable {
                                         break;
                                 }
                             }
-                            if (isDateValid(fila[6]) == false) {
+                            if (fila[6].length()<10) {
                                 int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[6] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
                                 switch (seleccion) {
                                     case 0:
@@ -149,7 +150,7 @@ public class PrincipalController extends Controller implements Initializable {
                                         break;
                                 }
                             }
-                            if (Integer.parseInt(fila[7])>6 || Integer.parseInt(fila[7])==0) {
+                            if (fila[7].length()==0 || Integer.parseInt(fila[7])>6 || Integer.parseInt(fila[7])==0) {
                                 int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[7] + ">> favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
                                 switch (seleccion) {
                                     case 0: {
@@ -177,7 +178,7 @@ public class PrincipalController extends Controller implements Initializable {
                                         break;
                                 }
                             }
-                            if (isDateValid(fila[10]) == false) {
+                            if (fila[10].length()<10) {
                                 int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[10] + ">> posee un formato distinto de fecha, favor solo ingresar en el siguiente formato <<dd/MM/yyyy>>, ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
                                 switch (seleccion) {
                                     case 0:
@@ -194,25 +195,40 @@ public class PrincipalController extends Controller implements Initializable {
                     }
                 }
             }
-        }catch (Exception e){
+       /* }catch (Exception e){
             JOptionPane.showMessageDialog(null,"El archivo <<"+nombre +">> no presenta el formato adecuado para poder abrirlo.Si no sabe cuál es el formato, diríjase al botón de <<Ayuda>>, luego en formato.");
-        }
+        }*/
     }
     public void OnActionbtnGuardar(ActionEvent actionEvent) throws ParseException, IOException, InterruptedException {
         long idd=8;
-        String nombre= "Licencia Windows";
         for(int x=0;x<options.size();x++){
+            Date today;
+            /*SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date today=formato.parse(options.get(x).getFechadecreacion());
+
+            String dateOut;
+            Locale currentLocale = new Locale ("en", "NZ") ;
+            DateFormat dateFormatter;
+            dateFormatter = DateFormat.getDateInstance(DateFormat.DEFAULT, currentLocale);
+            dateOut = dateFormatter.format(today);
+            System.out.println(dateOut + " " + currentLocale.toString()+"\n");*/
+            LocalTime ahora = LocalTime.now();
+
+
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate fecha = LocalDate.parse(options.get(x).getFechadecreacion(), formato);
-
+            System.out.println("hola "+fecha+"\n");
+            LocalDateTime fecha2 = LocalDateTime.of(fecha, ahora);
             if(ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca()))==null){
-                MarcaDTO marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha,options.get(x).getMarca());
+                MarcaDTO marca = ConsultasService.MarcaCBX(options.get(x).getEstado(),fecha2,options.get(x).getMarca());
             }
             LocalDate fecha1 = LocalDate.parse(options.get(x).getFechadeCreaciondelProveedor(), formato);
+            LocalDateTime fecha3= LocalDateTime.of(fecha1, ahora);
+            System.out.println("hola1 "+fecha1+"\n");
             if(ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor()))==null){
-                ProveedoresDTO proveedor = ConsultasService.ProveeCBX(options.get(x).getProveedor(),options.get(x).getNota(),options.get(x).getCorreoElectronico(),options.get(x).getEstado(),options.get(x).getTelefono(),fecha1,fecha1);
+                ProveedoresDTO proveedor = ConsultasService.ProveeCBX(options.get(x).getProveedor(),options.get(x).getNota(),options.get(x).getCorreoElectronico(),options.get(x).getEstado(),options.get(x).getTelefono(),fecha3,fecha3);
             }
-            ActivoDTO activo=ConsultasService.ObtenerActivo1(Long.parseLong(options.get(x).getContinente()),Long.parseLong(options.get(x).getNumero()),options.get(x).getEstado(),fecha,fecha,options.get(x).getNombre(),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
+            ActivoDTO activo=ConsultasService.ObtenerActivo1(Long.parseLong(options.get(x).getContinente()),Long.parseLong(options.get(x).getNumero()),options.get(x).getEstado(),fecha2,fecha2,options.get(x).getNombre(),ConsultasService.ObtenermarcaxNombre(sacarNombre(options.get(x).getMarca())),ConsultasService.ObtenerProvedoresxNombre(sacarNombre(options.get(x).getProveedor())));
         }
         JOptionPane.showMessageDialog(null,"Archivo guardado correctamente");
     }
@@ -259,9 +275,11 @@ public class PrincipalController extends Controller implements Initializable {
     public static boolean isDateValid(String date)
     {
         try {
-            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             df.setLenient(false);
             df.parse(date);
+            System.out.println("Fecha1 "+df.parse(date));
+            System.out.println("Fecha2 "+date);
             return true;
         } catch (ParseException e) {
             return false;

@@ -13,10 +13,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +48,7 @@ public class ConsultasService {
         return provedor;
 
     }
-    public static ProveedoresDTO ProveeCBX(String Nombre, String Notas,String Correo,String Estado,String Telefono,LocalDate fecha,LocalDate fechamodi) throws IOException, InterruptedException {
+    public static ProveedoresDTO ProveeCBX(String Nombre, String Notas,String Correo,String Estado,String Telefono,LocalDateTime fecha,LocalDateTime fechamodi) throws IOException, InterruptedException {
 
         ProveedoresDTO proveedores = null;
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
@@ -79,6 +76,7 @@ public class ConsultasService {
                 .append(Telefono)
                 .append("\"")
                 .append("}").toString();
+        System.out.println("jsonprove "+json+"\n");
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .uri(URI.create("http://localhost:8089/proveedores/"))
@@ -118,7 +116,7 @@ public class ConsultasService {
         return marca;
 
     }
-    public static MarcaDTO MarcaCBX(String Estado, LocalDate fecha, String Nombre) throws IOException, InterruptedException {
+    public static MarcaDTO MarcaCBX(String Estado, LocalDateTime fecha, String Nombre) throws IOException, InterruptedException {
 
         MarcaDTO marcas = null;
         AuthenticationResponse token = (AuthenticationResponse) AppContext.getInstance().get("Rol");
@@ -134,6 +132,7 @@ public class ConsultasService {
                 .append(Nombre)
                 .append("\"")
                 .append("}").toString();
+        System.out.println("jsonmarcas "+json+"\n");
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .uri(URI.create("http://localhost:8089/marca/"))
@@ -149,7 +148,7 @@ public class ConsultasService {
     }
 
 
-    public static ActivoDTO ObtenerActivo1(Long Continente,Long numero,String Estado, LocalDate fecha, LocalDate fechaModificacion, String Nombre,MarcaDTO Marcaid, ProveedoresDTO Provedorid) throws IOException, InterruptedException {
+    public static ActivoDTO ObtenerActivo1(Long Continente, Long numero, String Estado, LocalDateTime fecha, LocalDateTime fechaModificacion, String Nombre, MarcaDTO Marcaid, ProveedoresDTO Provedorid) throws IOException, InterruptedException {
         LocalDate localDatemarca = Instant.ofEpochMilli(Marcaid.getFechaCreacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localDateProveedor = Instant.ofEpochMilli(Provedorid.getFechaCreacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localDateproveedormo = Instant.ofEpochMilli(Provedorid.getFechaModificacion().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
@@ -214,6 +213,7 @@ public class ConsultasService {
                 .append(Provedorid.getTelefono())
                 .append("\"}")
                 .append("}").toString();
+        System.out.println("jsonActivo "+json+"\n");
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .uri(URI.create("http://localhost:8089/activo/"))

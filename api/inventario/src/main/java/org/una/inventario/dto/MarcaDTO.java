@@ -14,5 +14,5 @@ public class MarcaDTO {
     private Long id;
     private String nombre;
     private String estado;
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
 }

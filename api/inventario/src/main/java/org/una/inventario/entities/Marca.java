@@ -28,9 +28,9 @@ public class Marca implements Serializable {
     private String estado;
 
     @Column(name = "fecha_creacion", updatable = true)
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Setter(AccessLevel.PUBLIC)
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "marca")
     @Builder.Default

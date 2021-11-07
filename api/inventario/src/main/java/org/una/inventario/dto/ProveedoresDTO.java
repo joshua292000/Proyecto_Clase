@@ -1,6 +1,8 @@
 package org.una.inventario.dto;
 
 import lombok.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -15,7 +17,7 @@ public class ProveedoresDTO {
     private String telefono;
     private String correoElectronico;
     private String estado;
-    private Date fechaCreacion;
-    private Date fechaModificacion;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaModificacion;
 
 }
