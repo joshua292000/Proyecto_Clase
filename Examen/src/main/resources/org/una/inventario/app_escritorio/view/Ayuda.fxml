@@ -17,9 +17,9 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="imgAyuda" fitHeight="468.0" fitWidth="888.0" pickOnBounds="true">
+                        <ImageView fitHeight="483.0" fitWidth="899.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../Examen/src/main/resources/org/una/inventario/app_escritorio/resources/81-810264_simple-background-wallpaper-design-ultra-hd-desktop-fondos.jpg" />
+                              <Image url="@../resources/81-810264_simple-background-wallpaper-design-ultra-hd-desktop-fondos.jpg" />
                            </image>
                         </ImageView>
                         <Label fx:id="lblTitulo" layoutX="128.0" prefHeight="87.0" prefWidth="638.0" text="El mejor Inventario" textAlignment="CENTER">
@@ -40,7 +40,7 @@
                               <Font size="21.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnAtras" layoutX="690.0" layoutY="384.0" mnemonicParsing="false" onAction="#OnActionAtras" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: Green;" text="Cerrar">
+                        <Button fx:id="btnAtras" layoutX="598.0" layoutY="402.0" mnemonicParsing="false" onAction="#OnActionAtras" prefHeight="53.0" prefWidth="152.0" style="-fx-background-color: #0fd9d0;" text="Cerrar">
                            <font>
                               <Font name="Showcard Gothic" size="18.0" />
                            </font>
@@ -53,9 +53,9 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="imgFormato" fitHeight="467.0" fitWidth="868.0" layoutY="-1.0" pickOnBounds="true">
+                        <ImageView fitHeight="511.0" fitWidth="874.0" layoutY="-21.0" pickOnBounds="true">
                            <image>
-                              <Image url="@../../../../../../../../../Examen/src/main/resources/org/una/inventario/app_escritorio/resources/Capturadepantalla.png" />
+                              <Image url="@../resources/Capturadepantalla.png" />
                            </image>
                         </ImageView>
                      </children>
