@@ -52,6 +52,7 @@ public class PrincipalController extends Controller implements Initializable {
     public TableColumn tcFechadecreacion;
     public ScrollPane SPane;
     String[] opcionemss = {"Corregir la información", "Descartar la información"};
+    String[] opcionemss1 = {"OK"};
     final static String DATE_FORMAT = "dd/MM/yyyy";
     public String SEPARADOR = ";";
     private  ObservableList<ActivosDTO>  options = FXCollections.observableArrayList();
@@ -71,7 +72,9 @@ public class PrincipalController extends Controller implements Initializable {
     public void OnActionbtnAgregarA(ActionEvent actionEvent) throws IOException, CsvValidationException {
         tbvContenido.getItems().clear();
         btnGuardar.setDisable(false);
+        String nombre="";
         try {
+
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Buscar archivos");
             fileChooser.getExtensionFilters().addAll(
@@ -84,7 +87,8 @@ public class PrincipalController extends Controller implements Initializable {
 
         for(int i=0; i<filecsv.size();i++) {
             archCSV = new FileReader(filecsv.get(i));
-
+            nombre=filecsv.get(i).getName();
+            int cantidad=0;
 
             CSVParser conPuntoYComa = new CSVParserBuilder().withSeparator(';').build();
             csvReader = new CSVReaderBuilder(archCSV).withCSVParser(conPuntoYComa).build();
@@ -92,6 +96,15 @@ public class PrincipalController extends Controller implements Initializable {
             int num = 0;
                 if (filecsv != null) {
                     while ((fila = csvReader.readNext()) != null) {
+                        System.out.println("Fila tamaño = "+filecsv.get(i).getName());
+                        if(fila.length!=11){
+                            JOptionPane.showMessageDialog(null,"El archivo <<"+nombre +">> no presenta el formato adecuado para poder abrirlo.Si no sabe cuál es el formato, diríjase al botón de <<Ayuda>>, luego en formato.");
+                            if(filecsv.size()>1){
+                                i++;
+                            }
+                            break;
+                        }
+
                         if (num < 1) {
                             num = 1;
                         } else {
@@ -136,13 +149,29 @@ public class PrincipalController extends Controller implements Initializable {
                                         break;
                                 }
                             }
-                            if (fila[7]!="1"||fila[7]!="2"||fila[7]!="3"||fila[7]!="4"||fila[7]!="5"||fila[7]!="6") {
+                            if (Integer.parseInt(fila[7])>6 || Integer.parseInt(fila[7])==0) {
                                 int seleccion = JOptionPane.showOptionDialog(null, "El campo <<" + fila[7] + ">> favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida ¿Qué desea hacer?", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss, opcionemss[0]);
                                 switch (seleccion) {
-                                    case 0:
-                                            String respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[7] + ">>(1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida)", "Error!", JOptionPane.ERROR_MESSAGE);
-                                            fila[7] = respuesta;
+                                    case 0: {
+                                        String respuesta;
+                                        do {
+                                            respuesta = JOptionPane.showInputDialog(null, "Escriba correctamente el campo <<" + fila[7] + ">>(1=América 2=Europa 3=Asia 4=Oceanía 5=África 6=Antártida)", "Error!", JOptionPane.ERROR_MESSAGE);
+                                            if(respuesta.length()!=0){
+                                                if (Integer.parseInt(respuesta) < 7 && Integer.parseInt(respuesta) > 0) {
+                                                    fila[7] = respuesta;
+                                                } else {
+                                                    JOptionPane.showOptionDialog(null, "El campo que acaba de corregir es erróneo, favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss1, opcionemss1[0]);
+                                                    respuesta="8";
+                                                }
+                                            }else {
+                                                JOptionPane.showOptionDialog(null, "El campo que acaba de corregir es erróneo, favor poner un valor del 1 al 6,el cual corresponde respectivamente: 1.América 2.Europa 3.Asia 4.Oceanía 5.África 6.Antártida", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionemss1, opcionemss1[0]);
+                                                respuesta="8";
+                                            }
+
+                                        } while (respuesta.length()==0 || Integer.parseInt(respuesta) > 7 || Integer.parseInt(respuesta) == 0);
+
                                         break;
+                                    }
                                     case 1:
                                         fila[7] = null;
                                         break;
@@ -166,7 +195,7 @@ public class PrincipalController extends Controller implements Initializable {
                 }
             }
         }catch (Exception e){
-            JOptionPane.showMessageDialog(null,"El archivo no presenta el formato adecuado para poder abrirlo.Si no sabe cuál es el formato, dirijase al botón de <<Ayuda>>, luego en formato.");
+            JOptionPane.showMessageDialog(null,"El archivo <<"+nombre +">> no presenta el formato adecuado para poder abrirlo.Si no sabe cuál es el formato, diríjase al botón de <<Ayuda>>, luego en formato.");
         }
     }
     public void OnActionbtnGuardar(ActionEvent actionEvent) throws ParseException, IOException, InterruptedException {

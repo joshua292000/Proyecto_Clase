@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.una.inventario.app_escritorio.DTO.AuthenticationResponse;
 import org.una.inventario.app_escritorio.Util.AppContext;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpHeaders;
@@ -44,16 +45,13 @@ public class AutenticacionService {
                 .build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println("cedula: " + cedula);
-        System.out.println("contraseña: " + password);
-
+        if(response.statusCode() == 401){
+            JOptionPane.showMessageDialog(null,"Contraseña incorrectos");
+        }
         if(response.statusCode() == 500){
-            System.out.println("Contraseña incorrecta");
+            JOptionPane.showMessageDialog(null,"Contraseña o usuario incorrectos");
+
         }else{
-            System.out.println(response.statusCode());
-            System.out.println("Contraseña correcta");
-            System.out.println(response.body());
             AuthenticationResponse authenticationResponse = mapper.readValue(response.body(), AuthenticationResponse.class);
            AppContext.getInstance().set("Rol", authenticationResponse);
 
